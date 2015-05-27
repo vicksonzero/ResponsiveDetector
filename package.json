@@ -1,0 +1,30 @@
+{
+  "name": "ResponsiveDetector",
+  "version": "0.0.0",
+  "description": "Similarities between two svg mockup websites to achieve responsive design",
+  "main": "app.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vicksonzero/ResponsiveDetector.git"
+  },
+  "keywords": [
+    "Responsive",
+    "svg",
+    "web",
+    "analysis"
+  ],
+  "author": "Chui Hin Wah (vicksonzero)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vicksonzero/ResponsiveDetector/issues"
+  },
+  "homepage": "https://github.com/vicksonzero/ResponsiveDetector",
+  "dependencies": {
+    "fs": "0.0.2",
+    "libxmljs": "^0.14.1",
+    "promise": "^7.0.1"
+  }
+}
