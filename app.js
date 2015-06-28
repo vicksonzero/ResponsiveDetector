@@ -57,18 +57,14 @@ module.exports = (function(){
 		.then(function(){
 			console.log("xml2json for d[0]");
 			xml2jsParser.parseString(d[0].xmlString, function (err, result) {
-				d[0].xmlDoc = result;
+				d[0].xmlDoc = result.svg;
 				console.log("xml2json for d[0] finished");
 			});
 		})
 		.then(function(){
 			console.log("xml2json for d[1]");
 			xml2jsParser.parseString(d[1].xmlString, function (err, result) {
-				console.log("hi");
-				if(err){
-					console.log(err);
-				}
-				d[1].xmlDoc = result;
+				d[1].xmlDoc = result.svg;
 				console.log("xml2json for d[1] finished");
 			});
 			console.log("xml2json for d[1] skipped");
@@ -78,17 +74,19 @@ module.exports = (function(){
 			console.log("xml2json finished");
 			// debug
 			console.log(d[0].xmlDoc);
+			var logo0 = Svgger(d[0].xmlDoc).getElementById("Logo");
+			var logo1 = Svgger(d[1].xmlDoc).getElementById("Logo");
+			console.log(logo0);
+			compareLogo(logo0, logo1);
 		});
 
 	}
 	function compareLogo(g1, g2){
-		console.log("hi");
-		var a = g1.get("rect");
-		console.log(a);
+		console.log("compareLogo start");
 	}
 	function colorScore(g1,g2){
-
 	}
+
 
 	return App;
 })();
