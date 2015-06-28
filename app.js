@@ -1,6 +1,10 @@
-var Promise = require("promise").Promise;
+var Promise = require("promise");
 var fs = require("fs");
-var libxmljs = require("libxmljs");
+var xml2js = require('xml2js');
+var xml2jsParser = new xml2js.Parser({
+	explicitChildren: true,
+	preserveChildrenOrder: true
+});
 var Svgger = require('./svgger');
 
 // rgb and hsv conversion
@@ -48,36 +52,33 @@ module.exports = (function(){
 		d[0].xmlString = fs.readFileSync(d[0].path, {encoding: 'utf8'});
 		d[1].xmlString = fs.readFileSync(d[1].path, {encoding: 'utf8'});
 
-		// parse xml text into js object
-		d[0].xmlDoc = libxmljs.parseXml(d[0].xmlString);
-		d[1].xmlDoc = libxmljs.parseXml(d[1].xmlString);
 
-		// debug
-		var a= d[0].xmlDoc.childNodes();
-		for(var aa in a){
-			if(a[aa].name() == "text"){
-				console.log("  "+ a[aa].name());
-			}else{
-				console.log(a[aa].name());
-			}
-		}
-		console.log("===============");
+		var p = Promise.resolve(0)
+		.then(function(){
+			console.log("xml2json for d[0]");
+			xml2jsParser.parseString(d[0].xmlString, function (err, result) {
+				d[0].xmlDoc = result;
+				console.log("xml2json for d[0] finished");
+			});
+		})
+		.then(function(){
+			console.log("xml2json for d[1]");
+			xml2jsParser.parseString(d[1].xmlString, function (err, result) {
+				console.log("hi");
+				if(err){
+					console.log(err);
+				}
+				d[1].xmlDoc = result;
+				console.log("xml2json for d[1] finished");
+			});
+			console.log("xml2json for d[1] skipped");
 
-		// debug
-		var childofg1 = d[0].xmlDoc.get("//*[@id='Logo']").childNodes();
-		console.log(childofg1);
-
-		for(var index in childofg1){
-			console.log(childofg1[index].name());
-		}
-		console.log("===============");
-
-		var rect = d[0].xmlDoc.find("//*[@id='Logo']//rect")[0];
-		console.log(rect);
-
-		var logo0 = d[0].xmlDoc.get("//*[@id='Logo']");
-		var logo1 = d[1].xmlDoc.get("//*[@id='Logo']");
-		console.log( compareLogo(logo0, logo1) );
+		})
+		.then(function(){
+			console.log("xml2json finished");
+			// debug
+			console.log(d[0].xmlDoc);
+		});
 
 	}
 	function compareLogo(g1, g2){
