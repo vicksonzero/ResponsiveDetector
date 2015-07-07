@@ -76,15 +76,41 @@ module.exports = (function(){
 			console.log(d[0].xmlDoc);
 			var logo0 = Svgger(d[0].xmlDoc).getElementById("Logo");
 			var logo1 = Svgger(d[1].xmlDoc).getElementById("Logo");
+			console.log("Logo0:");
 			console.log(logo0);
+			traverse(d[0].xmlDoc, function(node,depth){
+				
+			});
 			compareLogo(logo0, logo1);
-		});
 
+		});
+	}
+	function traverse(xmlNode, callback, depth){
+		if(depth === undefined){
+			depth=0;
+		}
+		//console.log(xmlNode['#name']+":");
+		var str = "";
+		for(var i=0; i < depth; i++){
+			str+="  ";
+		}
+		console.log(str+Svgger(xmlNode).toString()+":");
+		if(xmlNode['#name']=="font"){
+			return;
+		}
+		if(xmlNode.hasOwnProperty("$$")){
+			for(var i=0; i< xmlNode['$$'].length; i++){
+				traverse(xmlNode['$$'][i], callback, depth+1);
+			}
+		}
+		//console.log("run "+xmlNode['#name']);
+		callback(xmlNode,depth);
 	}
 	function compareLogo(g1, g2){
 		console.log("compareLogo start");
 	}
 	function colorScore(g1,g2){
+
 	}
 
 

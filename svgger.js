@@ -7,7 +7,7 @@ var colorful = require('colorful');
 var RGB = colorful.RGB;
 var HSV = colorful.HSV;
 
-var cssColorName = require('cssColorName');
+var cssColorName = require('./cssColorName');
 
 // wrapper class for libxmljs, used in svg context
 
@@ -71,6 +71,18 @@ module.exports = (function(){
 					}
 					return HSV(color);
 				}
+			},
+			toString: function(){
+				var str = "";
+				if(this.xmlObject.hasOwnProperty("#name")){
+					str += this.xmlObject['#name'];
+				}
+				if(this.xmlObject.hasOwnProperty("$")){
+					if(this.xmlObject.$.hasOwnProperty("id")){
+						str += " #" + this.xmlObject.$.id;
+					}
+				}
+				return str;
 			}
 		}
 	}
