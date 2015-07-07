@@ -78,9 +78,20 @@ module.exports = (function(){
 			var logo1 = Svgger(d[1].xmlDoc).getElementById("Logo");
 			console.log("Logo0:");
 			console.log(logo0);
+			var symbolList = [];
 			traverse(d[0].xmlDoc, function(node,depth){
-				
+				var n = Svgger(node);
+				n.depth(depth);
+				symbolList.push(n);
 			});
+
+			// sort by descending depth
+			symbolList.sort(function(a,b){
+				return b.depth() - a.depth();
+			});
+			for (var i = 0; i < symbolList.length; i++) {
+				symbolList[i].scoreColor();
+			}
 			compareLogo(logo0, logo1);
 
 		});
@@ -112,6 +123,8 @@ module.exports = (function(){
 	function colorScore(g1,g2){
 
 	}
+
+
 
 
 	return App;

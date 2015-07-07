@@ -18,79 +18,91 @@ module.exports = (function(){
 	}
 
 	function Svgger(xmlObject){
-		return{
-			xmlObject: xmlObject,
-			attr: function (key, val) {
-				if(val === undefined){
-					// getter
-					return xmlObject.$[key];
-				}else{
-					// setter
-					xmlObject.$[key] = val;
-				}
-			},
-			getChildList:function(){
-				var result = [];
+		this.xmlObject= xmlObject;
+		this.scores = {
+			color:0
+		};
+	}
 
-				for(var i = 0; i < xmlObject.$$.length; i++){
-					result.push(Svgger(xmlObject.$$[i]));
-				}
+	Svgger.prototype.attr = function attr(key, val){
+		if(val === undefined){
+			// getter
+			return this.xmlObject.$[key];
+		}else{
+			// setter
+			this.xmlObject.$[key] = val;
+		}
+	};
+	Svgger.prototype.getChildList = function getChildList(){
+		var result = [];
+
+		for(var i = 0; i < this.xmlObject.$$.length; i++){
+			result.push(Svgger(this.xmlObject.$$[i]));
+		}
+		return result;
+	};
+	Svgger.prototype.getElementById = function getElementById(val){
+		if(this.xmlObject.$.id == val){
+			return this.xmlObject;
+		}
+		var result = null;
+		// for all children of this.xmlObject
+		for(var childIndex in this.xmlObject.$$){
+			result = new Svgger(this.xmlObject.$$[childIndex]).getElementById(val);
+			if(result != null){
 				return result;
-			},
-			getElementById:function (val) {
-				if(xmlObject.$.id == val){
-					return xmlObject;
-				}
-				var result = null;
-				// for all children of xmlObject
-				for(var childIndex in xmlObject.$$){
-					result = Svgger(xmlObject.$$[childIndex]).getElementById(val);
-					if(result != null){
-						return result;
-					}
-				}
-				return null;
-			},
-			colorFill: function (val) {
-				if(val === undefined){
-					// getter
-					var color = this.attr("fill");
-					if(color.charAt(0)!="#"){
-						console.log("color " + color + " is not hex");
-						color = cssColorName[color.toLowerCase()];
-					}
-					return HSV(color);
-				}
-			},
-			colorStroke: function (val) {
-				if(val === undefined){
-					// getter
-					var color = this.attr("stroke");
-					if(color.charAt(0)!="#"){
-						color = cssColorName[color.toLowerCase()];
-					}
-					return HSV(color);
-				}
-			},
-			toString: function(){
-				var str = "";
-				if(this.xmlObject.hasOwnProperty("#name")){
-					str += this.xmlObject['#name'];
-				}
-				if(this.xmlObject.hasOwnProperty("$")){
-					if(this.xmlObject.$.hasOwnProperty("id")){
-						str += " #" + this.xmlObject.$.id;
-					}
-				}
-				return str;
 			}
 		}
-	}
+		return null;
+	};
+	Svgger.prototype.colorFill = function colorFill(val){
+		if(val === undefined){
+			// getter
+			var color = this.attr("fill");
+			if(color.charAt(0)!="#"){
+				console.log("color " + color + " is not hex");
+				color = cssColorName[color.toLowerCase()];
+			}
+			return HSV(color);
+		}
+	};
+	Svgger.prototype.colorStroke = function colorStroke(val){
+		if(val === undefined){
+			// getter
+			var color = this.attr("stroke");
+			if(color.charAt(0)!="#"){
+				color = cssColorName[color.toLowerCase()];
+			}
+			return HSV(color);
+		}
+	};
+	Svgger.prototype.depth = function (val) {
+		if(val === undefined){
+			return this.depth;
+		}
+		this.depth = val;
+	};
+
+	Svgger.prototype.toString = function(){
+		var str = "";
+		if(this.xmlObject.hasOwnProperty("#name")){
+			str += this.xmlObject['#name'];
+		}
+		if(this.xmlObject.hasOwnProperty("$")){
+			if(this.xmlObject.$.hasOwnProperty("id")){
+				str += " #" + this.xmlObject.$.id;
+			}
+		}
+		return str;
+
+	};
 	Svgger.colorScore = function colorScore(svgger1, svgger2){
 		var clone1 = makeClone(svgger1);
 		var clone2 = makeClone(svgger2);
 
 	};
 
-	return Svgger;
+	return function svggerFactory(xmlObject){
+		return new Svgger(xmlObject);
+	};
 })();
