@@ -1,38 +1,64 @@
 
 // xml parsing
-var libxmljs = require("libxmljs");
+var xml2js = require("xml2js");
 
 // rgb and hsv conversion
 var colorful = require('colorful');
 var RGB = colorful.RGB;
 var HSV = colorful.HSV;
 
+// dicionary of color names
 var cssColorName = require('./cssColorName');
 
-// wrapper class for libxmljs, used in svg context
+var config = require("./config");
+
+// wrapper class for xml2js, used in svg context
 
 module.exports = (function(){
 
-	function makeClone(obj){
-		return JSON.parse(JSON.stringify(obj));
-	}
 
 	function Svgger(xmlObject){
 		this.xmlObject= xmlObject;
 		this.scores = {
-			color:0
+			color:{}
 		};
+		this._children = [];
+		this._depth = 0;
+		this._index = 0;
+	}
+	Svgger._index = 0;
+	Svgger.instances = {};
+	Svgger.factory = function factory(xmlObject, id){
+		var s = new Svgger(xmlObject);
+		var i = Svgger._index;
+		Svgger._index++;
+		s.index(i);
+		Svgger.instances[i] = s;
+		return s;
+	};
+
+	Svgger.get = function get(index){
+		return Svgger.instances[index];
 	}
 
 	Svgger.prototype.attr = function attr(key, val){
-		if(val === undefined){
-			// getter
-			return this.xmlObject.$[key];
+		if(this.xmlObject.hasOwnProperty(key)){
+			if(val === undefined){
+				// getter
+				return this.xmlObject.$[key];
+			}else{
+				// setter
+				this.xmlObject.$[key] = val;
+			}
 		}else{
-			// setter
-			this.xmlObject.$[key] = val;
+			return undefined;
 		}
 	};
+
+	Svgger.prototype.hasAttr = function hasAttr(key){
+		return this.xmlObject.hasOwnProperty(key);
+	};
+
 	Svgger.prototype.getChildList = function getChildList(){
 		var result = [];
 
@@ -55,32 +81,47 @@ module.exports = (function(){
 		}
 		return null;
 	};
-	Svgger.prototype.colorFill = function colorFill(val){
-		if(val === undefined){
-			// getter
-			var color = this.attr("fill");
-			if(color.charAt(0)!="#"){
-				console.log("color " + color + " is not hex");
-				color = cssColorName[color.toLowerCase()];
-			}
-			return HSV(color);
+	Svgger.prototype.colorFill = function colorFill(){
+		// getter
+		var color = this.attr("fill");
+		if(color.charAt(0)!="#"){
+			console.log("color " + color + " is not hex");
+			color = cssColorName[color.toLowerCase()];
+		}
+		return HSV(color);
+	};
+	Svgger.prototype.colorStroke = function colorStroke(){
+		// getter
+		var color = this.attr("stroke");
+		if(color.charAt(0)!="#"){
+			color = cssColorName[color.toLowerCase()];
+		}
+		return HSV(color);
+	};
+	Svgger.prototype.color = function color(component) {
+		if(component == "fill"){
+			return this.colorFill();
+		}else{
+			return this.colorStroke();
 		}
 	};
-	Svgger.prototype.colorStroke = function colorStroke(val){
+	Svgger.prototype.index = function (val) {
 		if(val === undefined){
-			// getter
-			var color = this.attr("stroke");
-			if(color.charAt(0)!="#"){
-				color = cssColorName[color.toLowerCase()];
-			}
-			return HSV(color);
+			return this._index;
 		}
+		this._index = val;
 	};
 	Svgger.prototype.depth = function (val) {
 		if(val === undefined){
-			return this.depth;
+			return this._depth;
 		}
-		this.depth = val;
+		this._depth = val;
+	};
+	Svgger.prototype.children = function (val) {
+		if(val === undefined){
+			return this._children;
+		}
+		this._children = val;
 	};
 
 	Svgger.prototype.toString = function(){
@@ -93,16 +134,26 @@ module.exports = (function(){
 				str += " #" + this.xmlObject.$.id;
 			}
 		}
+		str+= " (index:" + this._index + ")";
 		return str;
 
 	};
-	Svgger.colorScore = function colorScore(svgger1, svgger2){
-		var clone1 = makeClone(svgger1);
-		var clone2 = makeClone(svgger2);
+
+	Svgger.prototype.compareColor = function compareColor(svgger2){
+		var wcolor = config.w.color;
+		var scoreStroke = this.colorStroke();
+		var scoreFill = this.colorFill();
+		this.scores.color[svgger2.index()] = wcolor.stroke * scoreStroke +
+		                                     wcolor.fill   * scoreFill;
+	};
+
+	Svgger.prototype.conpareColorComponent = function conpareColorComponent(svgger2, comp){
 
 	};
 
-	return function svggerFactory(xmlObject){
-		return new Svgger(xmlObject);
-	};
+	function makeClone(obj){
+		return JSON.parse(JSON.stringify(obj));
+	}
+
+	return Svgger;
 })();
