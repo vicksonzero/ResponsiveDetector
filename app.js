@@ -13,6 +13,8 @@ var colorful = require('colorful');
 var RGB = colorful.RGB;
 var HSV = colorful.HSV;
 
+var config = require("./config");
+
 module.exports = (function(){
 	'use strict';
 
@@ -123,7 +125,7 @@ module.exports = (function(){
 			console.log("[5.2.1] Compare color");
 			for(var i=0; i < d[0].symbolList.length; i++){
 				for(var j=0; j < d[1].symbolList.length; j++){
-					d[0].symbolList[i].compareColor( d[1].symbolList[j] );
+					var score = d[0].symbolList[i].compareColor( d[1].symbolList[j] );
 				}
 			}
 		});
@@ -138,6 +140,8 @@ module.exports = (function(){
 			str+="  ";
 		}
 		console.log(str+Svgger(xmlNode).toString()+":");
+
+		var interestedTags = config.interestedTags;
 		if(!interestedTags.hasOwnProperty(xmlNode['#name'])){
 			return;
 		}
@@ -153,7 +157,7 @@ module.exports = (function(){
 		}
 		var n = Svgger(xmlNode);
 		n.depth(depth);
-		n.children(childrenList);
+		n.childrenList(childrenList);
 		symbolList.push(n);
 		return n;
 	}

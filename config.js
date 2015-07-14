@@ -11,9 +11,9 @@ module.exports = (function(){
 			},
 			// adds up to 1
 			colorHSV:{
-				h:0.6,
-				s:0.2,
-				v:0.2
+				h:0.7,
+				s:0.15,
+				v:0.15
 			}
 		},
 		interestedTags:{
@@ -24,7 +24,8 @@ module.exports = (function(){
 			"line":true,
 			"polyline":true,
 			"polygon":true,
-			"path":true
+			"path":true,
+			"svg":true
 		}
 	};
 
