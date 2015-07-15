@@ -111,14 +111,10 @@
 </font>
 
 	<g id="bg_1_">
-	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="481.852539" y1="926.914063" x2="478.677643" y2="195.167908">
-		<stop  offset="0" style="stop-color:#FFFFFF"/>
-		<stop  offset="1" style="stop-color:#A97C50"/>
-	</linearGradient>
-	<rect fill="url(#SVGID_1_)" stroke="#231F20" stroke-miterlimit="10" width="960" height="1000"/>
+	<rect fill="#A97C50" stroke="#231F20" stroke-miterlimit="10" width="960" height="1000"/>
 </g>
 <g id="content">
-	
+
 		<rect id="Content_bg" y="141.841309" opacity="0.4" fill="#06FF18" stroke="#231F20" stroke-miterlimit="10" width="211.682617" height="349.206543"/>
 	<text transform="matrix(1 0 0 1 33.000488 186.333008)" font-family="'MyriadPro-Regular'" font-size="22">Item1</text>
 	<text transform="matrix(1 0 0 1 33.000488 227.632813)" font-family="'MyriadPro-Regular'" font-size="22">Item2</text>
@@ -129,7 +125,7 @@
 </g>
 <g id="title">
 	<g id="main">
-		
+
 			<rect id="bg" x="211.682617" y="141.841309" opacity="0.5" fill="#FF7373" stroke="#231F20" stroke-miterlimit="10" width="748.317383" height="858.158691"/>
 		<text transform="matrix(1 0 0 1 242.611816 186.333008)"><tspan x="0" y="0" font-family="'MyriadPro-Regular'" font-size="20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </tspan><tspan x="0" y="38" font-family="'MyriadPro-Regular'" font-size="20">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim </tspan><tspan x="0" y="76" font-family="'MyriadPro-Regular'" font-size="20">veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea </tspan><tspan x="0" y="114" font-family="'MyriadPro-Regular'" font-size="20">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate </tspan><tspan x="0" y="152" font-family="'MyriadPro-Regular'" font-size="20">velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat </tspan><tspan x="0" y="190" font-family="'MyriadPro-Regular'" font-size="20">cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est </tspan><tspan x="0" y="228" font-family="'MyriadPro-Regular'" font-size="20">laborum.</tspan></text>
 	</g>

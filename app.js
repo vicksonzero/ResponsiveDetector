@@ -9,7 +9,7 @@ var Svgger = require('./svgger').factory;
 
 // rgb and hsv conversion
 // README: https://github.com/minodisk/colorful/tree/master
-var colorful = require('colorful');
+var colorful = require('./lib/colorful');
 var RGB = colorful.RGB;
 var HSV = colorful.HSV;
 
@@ -60,18 +60,6 @@ module.exports = (function(){
 
 		var p = Promise.resolve(0)
 		.then(function(){
-			console.log("+---------------------+");
-			console.log("|                     |");
-			console.log("| Responsive detector |");
-			console.log("|                     |");
-			console.log("+---------------------+");
-			console.log("");
-			console.log("Started on: " + Date());
-			console.log("");
-			console.log("=======================");
-			console.log("");
-		})
-		.then(function(){
 			console.log("[5.1.0] xml2json for d[0]");
 			xml2jsParser.parseString(d[0].xmlString, function (err, result) {
 				d[0].xmlDoc = result.svg;
@@ -90,11 +78,11 @@ module.exports = (function(){
 		.then(function(){
 			console.log("[5.1.0] xml2json finished");
 			// debug
-			console.log(d[0].xmlDoc);
+			//console.log(d[0].xmlDoc);
 			var logo0 = Svgger(d[0].xmlDoc).getElementById("Logo");
 			var logo1 = Svgger(d[1].xmlDoc).getElementById("Logo");
-			console.log("Logo0:");
-			console.log(logo0);
+			//console.log("Logo0:");
+			//console.log(logo0);
 
 		})
 		.then(function(){
@@ -125,7 +113,17 @@ module.exports = (function(){
 			console.log("[5.2.1] Compare color");
 			for(var i=0; i < d[0].symbolList.length; i++){
 				for(var j=0; j < d[1].symbolList.length; j++){
-					var score = d[0].symbolList[i].compareColor( d[1].symbolList[j] );
+					// compare all symbols between both lists
+					// and save inside the first object
+					d[0].symbolList[i].compareColorAgainst( d[1].symbolList[j] );
+				}
+			}
+		})
+		.then(function(){
+			console.log("[5.2.2] Compare shape");
+			for(var i=0; i < d[0].symbolList.length; i++){
+				for(var j=0; j < d[1].symbolList.length; j++){
+					d[0].symbolList[i].compareShapeAgainst( d[1].symbolList[j] );
 				}
 			}
 		});
@@ -139,7 +137,7 @@ module.exports = (function(){
 		for(var i=0; i < depth; i++){
 			str+="  ";
 		}
-		console.log(str+Svgger(xmlNode).toString()+":");
+		//console.log(str+Svgger(xmlNode).toString()+":");
 
 		var interestedTags = config.interestedTags;
 		if(!interestedTags.hasOwnProperty(xmlNode['#name'])){
@@ -163,9 +161,6 @@ module.exports = (function(){
 	}
 	function compareLogo(g1, g2){
 		console.log("compareLogo start");
-	}
-	function colorScore(g1,g2){
-
 	}
 
 

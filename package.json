@@ -1,10 +1,10 @@
 {
   "name": "ResponsiveDetector",
   "version": "0.0.0",
-  "description": "Similarities between two svg mockup websites to achieve responsive design",
+  "description": "Similarities between two svg websites mockups to achieve responsive design",
   "main": "app.js",
   "scripts": {
-    "test": "node test.js",
+    "test": "node testrunner.js",
     "start": "node-debug test.js"
   },
   "repository": {

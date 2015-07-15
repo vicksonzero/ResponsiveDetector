@@ -5,7 +5,7 @@ var xml2js = require("xml2js");
 
 // rgb and hsv conversion
 // https://github.com/minodisk/colorful
-var colorful = require('colorful');
+var colorful = require('./lib/colorful');
 var RGB = colorful.RGB;
 var HSV = colorful.HSV;
 
@@ -13,6 +13,8 @@ var HSV = colorful.HSV;
 var cssColorName = require('./cssColorName');
 
 var config = require("./config");
+
+var utility = require('./utility');
 
 // wrapper class for xml2js, used in svg context
 
@@ -50,7 +52,7 @@ module.exports = (function(){
 	}
 
 	Svgger.prototype.attr = function attr(key, val){
-		if(this.xmlObject.hasOwnProperty(key)){
+		if(this.xmlObject.$.hasOwnProperty(key)){
 			if(val === undefined){
 				// getter
 				return this.xmlObject.$[key];
@@ -64,7 +66,10 @@ module.exports = (function(){
 	};
 
 	Svgger.prototype.hasAttr = function hasAttr(key){
-		return this.xmlObject.hasOwnProperty(key);
+		if (this.xmlObject.hasOwnProperty("$")){
+			return this.xmlObject.$.hasOwnProperty(key);
+		}
+		return false;
 	};
 
 	Svgger.prototype.getChildList = function getChildList(){
@@ -127,29 +132,19 @@ module.exports = (function(){
 	/*
 	 * Color functions
 	 */
-	Svgger.prototype.colorFill = function colorFill(){
-		// getter
-		var color = this.attr("fill");
+	Svgger.prototype.color = function color(fillOrStroke) {
+		var color;
+		if(fillOrStroke == "fill"){
+			color = this.attr("fill");
+		}else{
+			color = this.attr("stroke");
+		}
+
 		if(color.charAt(0)!="#"){
 			console.log("color " + color + " is not hex");
 			color = cssColorName[color.toLowerCase()];
 		}
-		return HSV(color);
-	};
-	Svgger.prototype.colorStroke = function colorStroke(){
-		// getter
-		var color = this.attr("stroke");
-		if(color.charAt(0)!="#"){
-			color = cssColorName[color.toLowerCase()];
-		}
-		return HSV(color);
-	};
-	Svgger.prototype.color = function color(fillOrStroke) {
-		if(fillOrStroke == "fill"){
-			return this.colorFill();
-		}else{
-			return this.colorStroke();
-		}
+		return new HSV(color);
 	};
 	Svgger.prototype.getColorList = function getColorList(fillOrStroke) {
 		var cols = [];
@@ -157,84 +152,48 @@ module.exports = (function(){
 		if(clist.length > 0) {
 			for (var i = 0; i < clist.length; i++) {
 				var cols2 = clist[i].getColorList(fillOrStroke);
-				cols = cols.cocat(cols2);
+				cols = cols.concat(cols2);
 			}
 		}
+
 		if(this.hasAttr(fillOrStroke)){
 			cols.push(this.color(fillOrStroke));
 		}
 		return cols;
 	};
 
-	Svgger.prototype.compareColor = function compareColor(svgger2){
-		var wcolor = config.w.color;
-		var scoreStroke = this.compareColorComponent(svgger2, "stroke");
-		var scoreFill = this.compareColorComponent(svgger2, "fill");
-		this.scores.color[svgger2.index()] = wcolor.stroke * scoreStroke +
-		                                     wcolor.fill   * scoreFill;
+	Svgger.prototype.compareColorAgainst = function compareColorAgainst(svgger2){
+		// combine fill color and stroke color
+		var color0List = this.getColorList("fill").concat(this.getColorList("stroke"));
+		var color1List = svgger2.getColorList("fill").concat(svgger2.getColorList("stroke"));
+		// sort according to h > s > v precedence
+		utility.sortColor(color0List);
+		utility.sortColor(color1List);
+		//
+		var score = compareColorComponent(color0List, color1List);
+		console.log(score);
+		// save the score in my score list
+		this.scores.color[svgger2.index()] = score;
+
+
+
+		function compareColorComponent(colorList1, colorList2){
+			var sum = 0;
+			var len = Math.min(colorList1.length,colorList2.length);
+			if(len == 0) return 0;
+
+			// HACK: Onit the rest of the colors??????
+
+			for (var i = 0; i < len; i++) {
+				var weightedScore = utility.compareColorHSV(colorList1[i], colorList2[i]);
+				sum += weightedScore;
+
+			}
+			return sum/len;
+		};
+
+
 	};
-
-	Svgger.prototype.sortColor = function (colorArray) {
-		colorArray.sort(function(a,b){
-			if(a.h == b.h && a.s == b.s && a.v == b.v) return 0;
-			if(a.h<b.h) return -1;
-			if(a.h>b.h) return 1;
-			// h == h
-			if(a.s<b.s) return -1;
-			if(a.s>b.s) return 1;
-			// s == s
-			if(a.v<b.v) return -1;
-			if(a.v>b.v) return 1;
-		});
-	};
-
-	Svgger.prototype.compareColorComponent = function compareColorComponent(svgger2, fillOrStroke){
-		var color0List = this.getColorList(fillOrStroke);
-		var color1List = svgger2.getColorList(fillOrStroke);
-		this.sortColor(color0List);
-		this.sortColor(color1List);
-
-		var weightedScore = Svgger.compareColorHSV(color0, color1);
-	};
-
-	/**
-	 * return weighted score of color difference
-	 * @param  {h,s,v} color1   color in hue, saturation, vallue
-	 * @param  {h,s,v} color2   color in hue, saturation, vallue
-	 * @return {number[0,1]}    score from 0 to 1
-	 */
-	Svgger.compareColorHSV = function compareColorHSV(color1, color2) {
-		// compare by hsv components
-		var diffH = Math.abs(color1.h - color2.h);
-
-		// normalize hue difference to become a ring
-		if( diffH>180 ) diffH = 180 - diffH;
-		diffH/=180;
-
-		// other scores: saturation
-		var diffS = Math.abs(color1.s - color2.s);
-		// value
-		var diffV = Math.abs(color1.v - color2.v);
-
-		// get config entry fron config
-		var colorWeights = config.w.colorHSV;
-
-		// calculate weighted score
-		var weightedScore = diffH * colorWeights.h +
-		                    diffS * colorWeights.s +
-		                    diffV * colorWeights.v ;
-		return weightedScore;
-	};
-
-	/**
-	 * merging 2 arrays, removing duplicate
-	 * @return {array} new merged array
-	 */
-	function mergeNonRepeat(a,b){
-		return a.concat(b.filter(function (item) {
-		    return a.indexOf(item) < 0;
-		}));
-	}
 
 
 	return Svgger;

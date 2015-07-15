@@ -111,14 +111,10 @@
 </font>
 
 	<g id="bg_1_">
-	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="321.849609" y1="926.325195" x2="318.679077" y2="195.590271">
-		<stop  offset="0" style="stop-color:#FFFFFF"/>
-		<stop  offset="1" style="stop-color:#A97C50"/>
-	</linearGradient>
-	<rect fill="url(#SVGID_1_)" stroke="#231F20" stroke-width="0.816497" stroke-miterlimit="10" width="640" height="1000"/>
+	<rect fill="#A97C50" stroke="#231F20" stroke-width="0.816497" stroke-miterlimit="10" width="640" height="1000"/>
 </g>
 <g id="content">
-	
+
 		<rect id="Content_bg" y="141.841309" opacity="0.4" fill="#06FF18" stroke="#231F20" stroke-width="1.76094" stroke-miterlimit="10" width="640" height="358.158691"/>
 	<text transform="matrix(1 0 0 1 288.402832 211.670898)" font-family="'MyriadPro-Regular'" font-size="33">Item1</text>
 	<text transform="matrix(1 0 0 1 288.402832 261.370605)" font-family="'MyriadPro-Regular'" font-size="33">Item2</text>
@@ -129,11 +125,11 @@
 </g>
 <g id="title">
 	<g id="main">
-		
+
 			<rect id="bg" y="500" opacity="0.5" fill="#FF7373" stroke="#231F20" stroke-width="0.705908" stroke-miterlimit="10" width="640" height="500"/>
 		<text transform="matrix(1 0 0 1 30.616699 553.869141)"><tspan x="0" y="0" font-family="'MyriadPro-Regular'" font-size="22">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </tspan><tspan x="0" y="44" font-family="'MyriadPro-Regular'" font-size="22">eiusmod tempor incididunt ut labore et dolore magna aliqua. </tspan><tspan x="0" y="88" font-family="'MyriadPro-Regular'" font-size="22">Ut enim ad minim veniam, quis nostrud exercitation ullamco </tspan><tspan x="0" y="132" font-family="'MyriadPro-Regular'" font-size="22">laboris nisi ut aliquip ex ea commodo consequat. Duis aute </tspan><tspan x="0" y="176" font-family="'MyriadPro-Regular'" font-size="22">irure dolor in reprehenderit in voluptate velit esse cillum dolore </tspan><tspan x="0" y="220" font-family="'MyriadPro-Regular'" font-size="22">eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non </tspan><tspan x="0" y="264" font-family="'MyriadPro-Regular'" font-size="22">proident, sunt in culpa qui officia deserunt mollit anim id est </tspan><tspan x="0" y="308" font-family="'MyriadPro-Regular'" font-size="22">laborum.</tspan></text>
 	</g>
-	
+
 		<rect id="Title_bg" opacity="0.5" fill="#0000FF" stroke="#231F20" stroke-width="0.816497" stroke-miterlimit="10" width="640" height="141.841309"/>
 	<text transform="matrix(1 0 0 1 187.110352 111.10791)" font-family="'MyriadPro-Regular'" font-size="32">Title!!!!!!</text>
 	<g id="Logo">
