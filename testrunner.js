@@ -2,7 +2,7 @@
 // customize here
 
 var testcases = [];
-testcases = testcases.concat( require("./tests/test_color_score") );
+testcases = testcases.concat( require("./tests/test_utility") );
 // testcases = testcases.concat( require("./tests/test_whole") );
 testcases = testcases.concat( [] );
 

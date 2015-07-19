@@ -86,7 +86,7 @@ module.exports = (function(){
 
 		})
 		.then(function(){
-			console.log("[5.1.1] Traverse, wrap symbols with custom class, and store a list of svggers (Case 0)");
+			console.log("[5.1.1] Traverse, wrap symbols with custom class, and store them in a list (Case 0)");
 			var symbolList = [];
 			traverse(d[0].xmlDoc,symbolList);
 
@@ -98,7 +98,7 @@ module.exports = (function(){
 
 		})
 		.then(function(){
-			console.log("[5.1.2] Traverse, wrap symbols with custom class, and store a list of svggers (Case 1)");
+			console.log("[5.1.2] Traverse, wrap symbols with custom class, and store them in a list (Case 1)");
 			var symbolList = [];
 			traverse(d[1].xmlDoc,symbolList);
 
@@ -143,6 +143,9 @@ module.exports = (function(){
 		if(!interestedTags.hasOwnProperty(xmlNode['#name'])){
 			return;
 		}
+		// wrap current node with svgger
+		var n = Svgger(xmlNode);
+
 		// traverse children and collect
 		var childrenList = [];
 		if(xmlNode.hasOwnProperty("$$")){
@@ -150,12 +153,15 @@ module.exports = (function(){
 				var child = traverse(xmlNode['$$'][i], symbolList, depth+1);
 				if(child){
 					childrenList.push(child);
+					child.parentSvgger(n);
 				}
 			}
 		}
-		var n = Svgger(xmlNode);
-		n.depth(depth);
+		// register children
 		n.childrenList(childrenList);
+		// record depth along the tree
+		n.depth(depth);
+		// queue up in symbol list
 		symbolList.push(n);
 		return n;
 	}

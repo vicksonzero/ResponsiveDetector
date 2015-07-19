@@ -27,6 +27,7 @@ module.exports = (function(){
 			color:{}
 		};
 		this._children = [];
+		this._parent = null;
 		this._depth = 0;
 		this._index = 0;
 	}
@@ -112,6 +113,12 @@ module.exports = (function(){
 		}
 		this._children = val;
 	};
+	Svgger.prototype.parentSvgger = function (val) {
+		if(val === undefined){
+			return this._parent;
+		}
+		this._parent = val;
+	};
 
 	Svgger.prototype.toString = function(){
 		var str = "";
@@ -162,6 +169,35 @@ module.exports = (function(){
 		return cols;
 	};
 
+	Svgger.prototype.getAllLocusList = function getAllLocusList(isRoot) {
+	};
+
+	Svgger.prototype.getLocusList = function getLocusList(isRoot) {
+		switch(this.xmlObject['#name']){
+			case "rect":
+				return utility.rectToPointsList(this.xmlObject, config.pathSegmentLength);
+				break;
+			case "circle":
+
+				break;
+			case "ellipse":
+
+				break;
+			case "line":
+
+				break;
+			case "polyline":
+
+				break;
+			case "polygon":
+
+				break;
+			case "path":
+
+				break;
+		}
+	};
+
 	Svgger.prototype.compareColorAgainst = function compareColorAgainst(svgger2){
 		// combine fill color and stroke color
 		var color0List = this.getColorList("fill").concat(this.getColorList("stroke"));
@@ -182,7 +218,7 @@ module.exports = (function(){
 			var len = Math.min(colorList1.length,colorList2.length);
 			if(len == 0) return 0;
 
-			// HACK: Onit the rest of the colors??????
+			// HACK: Omit the rest of the colors??????
 
 			for (var i = 0; i < len; i++) {
 				var weightedScore = utility.compareColorHSV(colorList1[i], colorList2[i]);
@@ -195,6 +231,23 @@ module.exports = (function(){
 
 	};
 
+	Svgger.prototype.compareShapeAgainst = function compareShapeAgainst(svgger2){
+		// combine fill color and stroke color
+		var color0List = this.getLocusList();
+		var color1List = svgger2.getLocusList();
+		//
+		var score = compareColorComponent(color0List, color1List);
+		console.log(score);
+		// save the score in my score list
+		this.scores.color[svgger2.index()] = score;
+
+
+		function compareColorComponent(colorList1, colorList2){
+
+		};
+
+
+	};
 
 	return Svgger;
 })();

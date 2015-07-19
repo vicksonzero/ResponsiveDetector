@@ -26,7 +26,8 @@ module.exports = (function(){
 			"polygon":true,
 			"path":true,
 			"svg":true
-		}
+		},
+		pathSegmentLength:5
 	};
 
 	// preprocessing
