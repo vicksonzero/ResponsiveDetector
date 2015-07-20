@@ -55,6 +55,9 @@ module.exports = (function() {
             },10);
             assert.equal(result.length, 96);
         },
+        function test_break_polyline(argument) {
+            // body...
+        }
         function _does_not_run() {
 
         }

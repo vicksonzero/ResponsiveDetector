@@ -178,16 +178,24 @@ module.exports = (function(){
 				return utility.rectToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "circle":
-
+				return utility.rectToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "ellipse":
-
+				return utility.rectToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "line":
-
+				var p1 = {
+					x: this.xmlObject.$.x1 || 0,
+					y: this.xmlObject.$.y1 || 0
+				};
+				var p2 = {
+					x: this.xmlObject.$.x2 || 0,
+					y: this.xmlObject.$.y2 || 0
+				};
+				return utility.lineToPointsList(p1, p2, config.pathSegmentLength).concat(p2);
 				break;
 			case "polyline":
-
+				return utility.polylineToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "polygon":
 
