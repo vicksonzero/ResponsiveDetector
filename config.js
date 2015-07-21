@@ -37,11 +37,11 @@ module.exports = (function(){
 
 	// validation
 	(function(c) {
-		assert(c.stroke + c.fill == 1, "[color] weights should add up to 1");
+		assert.equals(c.stroke + c.fill, 1, "[color] weights should add up to 1");
 	}(config.w.colorScore));
 
 	(function(c) {
-		assert(c.h + c.s + c.v == 1, "[colorHSV] weights should add up to 1");
+		assert.equals(c.h + c.s + c.v, 1, "[colorHSV] weights should add up to 1");
 	}(config.w.colorHSV));
 
 	// return processed config

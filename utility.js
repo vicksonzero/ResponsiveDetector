@@ -112,7 +112,7 @@ module.exports = (function(){
 	/**
 	 * turn the d attribute of a path into an array of commands
 	 * @param  {string} pathString                               the d in <path d="">
-	 * @return {array of {x:number, y:number}}   broken command tokens
+	 * @return {array of {x: parseFloat(number), y: parseFloat(number}}   broken command tokens)
 	 */
 	Utility.parsePolylineData = function parsePolylineData(pathString)
 	{
@@ -127,13 +127,14 @@ module.exports = (function(){
 		{
 			if (xy == 'x')
 			{
-				current = {x:match[1], y:null};
+				current = {x: parseFloat(match[1]), y: null};
+				xy = 'y';
 			}else{
-				current.y = match[1];
+				current.y = parseFloat(match[1]);
 				points.push(current);
+				xy = 'x';
 			}
 		}
-		if (current) points.push(current);
 		return points;
 	}
 
@@ -156,29 +157,56 @@ module.exports = (function(){
 		// calculate how far (x,y) per interval
 		var angle = Math.atan2((p2.y-p1.y), (p2.x-p1.x));
 		var delta = {
-			x:intervalLength*Math.cos(angle),
-			y:intervalLength*Math.sin(angle)
+			x: parseFloat(intervalLength*Math.cos(angle)),
+			y: parseFloat(intervalLength*Math.sin(angle))
 		};
 		var len = Math.sqrt((p2.y-p1.y) * (p2.y-p1.y) + (p2.x-p1.x) * (p2.x-p1.x)) / intervalLength;
 		for(var i=0; i < len; i++){
 			points.push({
-				x: p1.x + i * delta.x,
-				y: p1.y + i * delta.y
+				x: parseFloat(p1.x + i * delta.x),
+				y: parseFloat(p1.y + i * delta.y)
 			});
 		}
 		// last point
 		if(includeLastPoint){
-			points.push({ x: p2.x, y: p2.y });
+			points.push({ x: parseFloat(p2.x), y: parseFloat(p2.y) });
 		}
 		return points;
 	};
 
     Utility.polylineToPointsList = function polylineToPointsList(xmlObject, intervalLength) {
 	    // empty interval means strictly 10 points
-	    if (intervalLength === undefined) intervalLength = Math.abs(p2.x-p1.x)/10;
+	    if (intervalLength === undefined) intervalLength = 10;
 
 	    var points = [];
-	    throw "i m lazy";
+		var vertices = Utility.parsePolylineData(xmlObject.$.points);
+		vertices.reverse();
+		var a = vertices.pop();
+		while(vertices.length>0){
+			var b = vertices.pop();
+			points = points.concat(Utility.lineToPointsList(a, b, intervalLength, false));
+			a = b;
+		}
+
+	    return points;
+    };
+
+    Utility.polygonToPointsList = function polygonToPointsList(xmlObject, intervalLength) {
+	    // empty interval means strictly 10 points
+	    if (intervalLength === undefined) intervalLength = 10;
+
+	    var points = [];
+		var vertices = Utility.parsePolylineData(xmlObject.$.points);
+		vertices.reverse();
+		var a = vertices.pop();
+		var firstPoint = a;
+		while(vertices.length>0){
+			var b = vertices.pop();
+			points = points.concat(Utility.lineToPointsList(a, b, intervalLength, false));
+			a = b;
+		}
+		points = points.concat(Utility.lineToPointsList(a, firstPoint, intervalLength, false));
+
 
 	    return points;
     };
@@ -195,44 +223,44 @@ module.exports = (function(){
 		// 4 edges NESW
 		// N
 		sidePoints = Utility.lineToPointsList({
-				x: xmlObject.$.x || 0,//p1
-				y: xmlObject.$.y || 0
+				x: parseFloat(xmlObject.$.x || 0),//p1
+				y: parseFloat(xmlObject.$.y || 0)
 			},{
-				x: xmlObject.$.width,//p2
-				y: xmlObject.$.y || 0
+				x: parseFloat(xmlObject.$.width),//p2
+				y: parseFloat(xmlObject.$.y || 0)
 			},
 			intervalLength);
 		points = points.concat(sidePoints);
 
 		// E
 		sidePoints = Utility.lineToPointsList({
-			x: xmlObject.$.width,//p1
-			y: xmlObject.$.y || 0
+			x: parseFloat(xmlObject.$.width),//p1
+			y: parseFloat(xmlObject.$.y || 0)
 		},{
-			x: xmlObject.$.width,//p2
-			y: xmlObject.$.height
+			x: parseFloat(xmlObject.$.width),//p2
+			y: parseFloat(xmlObject.$.height)
 		},
 		intervalLength);
 		points = points.concat(sidePoints);
 
 		// S
 		sidePoints = Utility.lineToPointsList({
-			x: xmlObject.$.width,//p1
-			y: xmlObject.$.height
+			x: parseFloat(xmlObject.$.width),//p1
+			y: parseFloat(xmlObject.$.height)
 		},{
-			x: xmlObject.$.x || 0,//p2
-			y: xmlObject.$.height
+			x: parseFloat(xmlObject.$.x || 0),//p2
+			y: parseFloat(xmlObject.$.height)
 		},
 		intervalLength);
 		points = points.concat(sidePoints);
 
 		// S
 		sidePoints = Utility.lineToPointsList({
-				x: xmlObject.$.x || 0,//p1
-				y: xmlObject.$.height
+				x: parseFloat(xmlObject.$.x || 0),//p1
+				y: parseFloat(xmlObject.$.height)
 			},{
-				x: xmlObject.$.x || 0,//p2
-				y: xmlObject.$.y || 0
+				x: parseFloat(xmlObject.$.x || 0),//p2
+				y: parseFloat(xmlObject.$.y || 0)
 			},
 			intervalLength);
 		points = points.concat(sidePoints);
@@ -242,28 +270,65 @@ module.exports = (function(){
 
 	};
 
+	Utility.circleToPointsList = function circleToPointsList(xmlObject, intervalLength) {
+		var points = [];
+		var cx = parseFloat(xmlObject.$.cx);
+		var cy = parseFloat(xmlObject.$.cy);
+		var r  = parseFloat(xmlObject.$.r);
+		var perimeter = 2 * r * Math.PI;
+		var intervals = perimeter/intervalLength;
+		var angularIntervals = 2 * Math.PI / intervals;
+
+		for(var i=0; i < intervals; i++){
+			points.push({
+				x: cx + Math.cos(angularIntervals*i) * r,
+				y: cy + Math.sin(angularIntervals*i) * r,
+			});
+		}
+		return points;
+	};
+
 	// http://cgm.cs.mcgill.ca/~godfried/teaching/cg-projects/98/normand/main.html
 	Utility.hausdorffDistance = function hausdorffDistance(pointList1, pointList2){
-		var h = 0;
-		var maxD=0, minD=0;
-		for(var p=0; p < pointList1.length; p++){
-			minD = Infinity;
-			for(var q = 0; q < pointList2.length; q++){
-				var d = manhattanDistance(pointList1[p], pointList2[q]);
-				if(d < minD){
-					minD = d;
+		var hAB = h(pointList1, pointList2);
+		var hBA = h(pointList2, pointList1);
+		// max( h(A,B), h(B,A) )
+		return Math.max(hAB, hBA);
+
+		// h(A,B) = max(p in A){ min(q in B){ dist(p,q) } }
+		function h(pointList1, pointList2){
+			var maxD=0, minD=0;
+			for(var p=0; p < pointList1.length; p++){
+				minD = Infinity;
+				for(var q = 0; q < pointList2.length; q++){
+					var d = Utility.manhattanDistance(pointList1[p], pointList2[q]);
+					if(d < minD){
+						minD = d;
+					}
+				}
+				if(minD>maxD){
+					maxD = minD;
 				}
 			}
-			if(minD>maxD){
-				maxD = minD;
-			}
+			return maxD;
 		}
-		return maxD;
 	};
 
 	Utility.manhattanDistance = function manhattanDistance(p1, p2){
 		return Math.abs(p1.x-p2.x) + Math.abs(p1.y-p2.y);
 	};
+
+	Utility.shiftAllPoints = function shiftAllPoints(points, delta){
+		var result = [];
+		for (var i = 0; i < points.length; i++) {
+			result.push({
+				x: points[i].x + delta.x,
+				y: points[i].y + delta.y
+			});
+		}
+		return result;
+	};
+
 
 	return Utility;
 })();

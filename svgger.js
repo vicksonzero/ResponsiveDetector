@@ -24,7 +24,8 @@ module.exports = (function(){
 	function Svgger(xmlObject){
 		this.xmlObject= xmlObject;
 		this.scores = {
-			color:{}
+			color:{},
+			shape:{}
 		};
 		this._children = [];
 		this._parent = null;
@@ -170,6 +171,9 @@ module.exports = (function(){
 	};
 
 	Svgger.prototype.getAllLocusList = function getAllLocusList(isRoot) {
+		//if(isRoot === undefined) isRoot = false;
+		var points = this.getLocusList();
+
 	};
 
 	Svgger.prototype.getLocusList = function getLocusList(isRoot) {
@@ -178,10 +182,11 @@ module.exports = (function(){
 				return utility.rectToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "circle":
-				return utility.rectToPointsList(this.xmlObject, config.pathSegmentLength);
+				return utility.circleToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "ellipse":
-				return utility.rectToPointsList(this.xmlObject, config.pathSegmentLength);
+				throw "BOSS!";
+				return utility.ellipseToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "line":
 				var p1 = {
@@ -192,16 +197,16 @@ module.exports = (function(){
 					x: this.xmlObject.$.x2 || 0,
 					y: this.xmlObject.$.y2 || 0
 				};
-				return utility.lineToPointsList(p1, p2, config.pathSegmentLength).concat(p2);
+				return utility.lineToPointsList(p1, p2, config.pathSegmentLength, true);
 				break;
 			case "polyline":
 				return utility.polylineToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "polygon":
-
+				return utility.polygonToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "path":
-
+				throw "FINAL BOSS!";
 				break;
 		}
 	};
@@ -215,11 +220,11 @@ module.exports = (function(){
 		utility.sortColor(color1List);
 		//
 		var score = compareColorComponent(color0List, color1List);
-		console.log(score);
+		console.log(this.index() + "vs" + svgger2.index() + ":  " + score*100 + "%");
 		// save the score in my score list
 		this.scores.color[svgger2.index()] = score;
 
-
+		// nothing to return
 
 		function compareColorComponent(colorList1, colorList2){
 			var sum = 0;
@@ -236,24 +241,18 @@ module.exports = (function(){
 			return sum/len;
 		};
 
-
 	};
 
 	Svgger.prototype.compareShapeAgainst = function compareShapeAgainst(svgger2){
 		// combine fill color and stroke color
-		var color0List = this.getLocusList();
-		var color1List = svgger2.getLocusList();
+		var color0List = this.getAllLocusList();
+		var color1List = svgger2.getAllLocusList();
 		//
-		var score = compareColorComponent(color0List, color1List);
+		var hd = utility.hausdorffDistance(color0List, color1List);
+		var score = 1/( 1+ hd );
 		console.log(score);
 		// save the score in my score list
-		this.scores.color[svgger2.index()] = score;
-
-
-		function compareColorComponent(colorList1, colorList2){
-
-		};
-
+		this.scores.shape[svgger2.index()] = score;
 
 	};
 

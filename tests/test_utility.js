@@ -5,6 +5,9 @@ var utility = require('../utility');
 var colorful = require('../lib/colorful');
 var HSV = colorful.HSV;
 
+var verbose = 0;
+console.log("verbose: " + (verbose==1));
+
 module.exports = (function() {
 
     /*
@@ -26,7 +29,7 @@ module.exports = (function() {
 		{
             var pathD = "M262,661C130,661 36,541 36,323C38,108 124,-11 251,-11C395,-11 477,111 477,332C477,539 399,661 262,661M257,593C348,593 389,488 389,328C389,162 346,57 256,57C176,57 124,153 124,322C124,499 180,593 257,593z";
 			var result = utility.parsePathData(pathD);
-            console.log(result);
+            if(verbose) console.log(result);
 
             assert.equal(result.length ,  11);
             assert.equal(result[0][0] ,  "M");
@@ -38,26 +41,68 @@ module.exports = (function() {
 
             assert.equal(result[10][0] ,  "z");
         },
+        function test_break_polyline_points(argument) {
+            var result = utility.parsePolylineData("0,0 0,6 8,6");
+            if(verbose) console.log(result);
+            assert.equal(result.length, 3);
+        },
         function test_break_line(){
             var result = utility.lineToPointsList({x:0,y:0},{x:10,y:20},2);
-            console.log(result);
+            if(verbose) console.log(result);
 
             assert.equal(result.length ,  12);
         },
         function test_break_rect(){
-            var result = utility.rectToPointsList({
+            var xmlObject = {
                 "$":{
                     x:10,
                     y:10,
                     width:200,
                     height:300
                 }
-            },10);
+            };
+            var result = utility.rectToPointsList(xmlObject,10);
             assert.equal(result.length, 96);
         },
         function test_break_polyline(argument) {
-            // body...
-        }
+            var xmlObject = {
+                "$":{
+                    points:"0,0 0,6 8,6"
+                }
+            }
+            var result = utility.polylineToPointsList(xmlObject,2);
+            if(verbose) console.log(result);
+            assert.equal(result.length, 7);
+        },
+        function test_break_polygon(argument) {
+            var xmlObject = {
+                "$":{
+                    points:"0,0 0,6 8,6"
+                }
+            };
+            var result = utility.polygonToPointsList(xmlObject,2);
+            if(verbose) console.log(result);
+            assert.equal(result.length, 12);
+        },
+        function test_break_circle(argument) {
+            var xmlObject = {
+                "$":{
+                    cx:20,
+                    cy:20,
+                    r: 20
+                }
+            };
+            var result = utility.circleToPointsList(xmlObject,10);
+
+            if(verbose) console.log(result);
+            if(verbose) console.log("radius: "+pointDistance(result[4],{x:20,y:20}));
+            
+            assert(Math.abs(pointDistance(result[4],{x:20,y:20})-20) < 0.000001, "error: distance more than 0.000001");
+            assert.equal(result.length, 13);
+        },
+        function test_break_path(argument) {
+            assert(false,"Not implemented");
+        },
         function _does_not_run() {
 
         }
@@ -66,11 +111,11 @@ module.exports = (function() {
 	// helper functions
 	function testCompareColor(c1,c2, expected) {
 		var str1 = "c1: " + [oneDP(c1.h), oneDP(c1.s), oneDP(c1.v)].join(", ");
-		console.log(str1);
+		if(verbose) console.log(str1);
 		var str2 = "c2: " + [oneDP(c2.h), oneDP(c2.s), oneDP(c2.v)].join(", ");
-		console.log(str2);
+		if(verbose) console.log(str2);
         var result = utility.compareColorHSV(c1,c2);
-		console.log("compareColorHSV: " +  result);
+		if(verbose) console.log("compareColorHSV: " +  result);
 
         assert.equal(result ,  expected);
 
@@ -78,6 +123,9 @@ module.exports = (function() {
 	function oneDP(number) {
 		return Math.round( number * 10 ) / 10;
 	}
+    function pointDistance(a,b){
+        return Math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
+    }
 
 })();
 /*
