@@ -172,8 +172,14 @@ module.exports = (function(){
 
 	Svgger.prototype.getAllLocusList = function getAllLocusList(isRoot) {
 		//if(isRoot === undefined) isRoot = false;
-		var points = this.getLocusList();
-
+		var points = [];
+		points = points.concat(this.getLocusList());
+		var cl = this.childrenList();
+		for (var i = 0; i < cl.length; i++) {
+			var childPointsList = cl[i].getAllLocusList();
+			points = points.concat(childPointsList);
+		}
+		return points;
 	};
 
 	Svgger.prototype.getLocusList = function getLocusList(isRoot) {
@@ -208,6 +214,8 @@ module.exports = (function(){
 			case "path":
 				throw "FINAL BOSS!";
 				break;
+			default:
+				return [];
 		}
 	};
 
@@ -220,7 +228,7 @@ module.exports = (function(){
 		utility.sortColor(color1List);
 		//
 		var score = compareColorComponent(color0List, color1List);
-		console.log(this.index() + "vs" + svgger2.index() + ":  " + score*100 + "%");
+		console.log(this.index() + "vs" + svgger2.index() + ":  " + twoDP(score*100) + "%");
 		// save the score in my score list
 		this.scores.color[svgger2.index()] = score;
 
@@ -250,11 +258,17 @@ module.exports = (function(){
 		//
 		var hd = utility.hausdorffDistance(color0List, color1List);
 		var score = 1/( 1+ hd );
-		console.log(score);
+		console.log(this.index() + "vs" + svgger2.index() + ":  " + twoDP(score*100) + "%");
+
 		// save the score in my score list
 		this.scores.shape[svgger2.index()] = score;
 
 	};
+
+
+	function twoDP(number) {
+		return Math.round( number * 100 ) / 100;
+	}
 
 	return Svgger;
 })();
