@@ -1,7 +1,7 @@
 
 // xml parsing
 // https://github.com/Leonidas-from-XIV/node-xml2js
-var xml2js = require("xml2js");
+var xml2js = require("./lib/xml2js");
 
 // rgb and hsv conversion
 // https://github.com/minodisk/colorful
@@ -25,12 +25,14 @@ module.exports = (function(){
 		this.xmlObject= xmlObject;
 		this.scores = {
 			color:{},
-			shape:{}
+			shape:{},
+			final:{}
 		};
 		this._children = [];
 		this._parent = null;
 		this._depth = 0;
 		this._index = 0;
+		this._match = null;
 	}
 
 	function makeClone(obj){
@@ -252,7 +254,6 @@ module.exports = (function(){
 	};
 
 	Svgger.prototype.compareShapeAgainst = function compareShapeAgainst(svgger2){
-		// combine fill color and stroke color
 		var color0List = this.getAllLocusList();
 		var color1List = svgger2.getAllLocusList();
 		//
@@ -262,6 +263,19 @@ module.exports = (function(){
 
 		// save the score in my score list
 		this.scores.shape[svgger2.index()] = score;
+
+	};
+
+	Svgger.prototype.finalizeScore = function finalizeScore(){
+		for (var index in this.scores.color) {
+			if (this.scores.color.hasOwnProperty(index)) {
+				this.scores.final[index] = 1;
+			}
+		}
+
+	};
+
+	Svgger.prototype.makeMatch = function makeMatch(){
 
 	};
 
