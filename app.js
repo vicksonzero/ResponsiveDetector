@@ -90,6 +90,65 @@ module.exports = (function(){
 
 		})
 		.then(function(){
+			console.log("[5.1.1] Traverse, wrap symbols with custom class, and store them in a list (Case 0)");
+			var symbolList = [];
+			traverse(d[0].xmlDoc,symbolList);
+
+			for (var s in symbolList) {
+				var parentSvg = symbolList[s].parentSvgger();
+				if(parentSvg == null) parentSvg = symbolList[s];
+				var center = symbolList[s].getCenter();
+				if(! parentSvg.xmlObject.hasOwnProperty("$$")){
+					parentSvg.xmlObject["$$"] = [];
+				}
+				parentSvg.xmlObject["$$"].push({
+					"#name": "text",
+					"$": {
+						"transform": "matrix(1 0 0 1 "+ (center.x + 20) +" "+ (center.y + 20) +")",
+						"font-size": "22"
+					},
+					_: ""+symbolList[s].index()
+				});
+			}
+
+			// sort by descending depth
+			symbolList.sort(function(a,b){
+				return b.depth() - a.depth();
+			});
+			d[0].symbolList = symbolList;
+
+		})
+		.then(function(){
+			console.log("[5.1.2] Traverse, wrap symbols with custom class, and store them in a list (Case 1)");
+			var symbolList = [];
+			traverse(d[1].xmlDoc,symbolList);
+
+			// write everyone's id on the picture
+			for (var s in symbolList) {
+				var parentSvg = symbolList[s].parentSvgger();
+				if(parentSvg == null) parentSvg = symbolList[s];
+				var center = symbolList[s].getCenter();
+				if(! parentSvg.xmlObject.hasOwnProperty("$$")){
+					parentSvg.xmlObject["$$"] = [];
+				}
+				parentSvg.xmlObject["$$"].push({
+					"#name": "text",
+					"$": {
+						"transform": "matrix(1 0 0 1 "+ (center.x + 20) +" "+ (center.y + 20) +")",
+						"font-size": "22"
+					},
+					_: ""+symbolList[s].index()
+				});
+			}
+
+			// sort by descending depth
+			symbolList.sort(function(a,b){
+				return b.depth() - a.depth();
+			});
+			d[1].symbolList = symbolList;
+
+		})
+		.then(function(){
 			var mergedPicture = {
 				"#name":"svg",
 				"$":{
@@ -97,9 +156,9 @@ module.exports = (function(){
 					"height": "1000px",
 					"version": "1.1",
 					"viewBox": "0 0 1600 1000",
-					"width": "960px",
-					x: "0px",
-					y: "0px",
+					"width": "1600px",
+					"x": "0px",
+					"y": "0px",
 					"xml:space": "preserve",
 					"xmlns": "http://www.w3.org/2000/svg",
 					"xmlns:xlink": "http://www.w3.org/1999/xlink"
@@ -114,30 +173,6 @@ module.exports = (function(){
 			mergedPicture["$"].width = w0 + w1 + "px";
 			mergedPicture["$$"][1]["$"].x = mergedPicture["$$"][0]["$"].width;
 			dumpPhoto(mergedPicture, "mergedPicture");
-		})
-		.then(function(){
-			console.log("[5.1.1] Traverse, wrap symbols with custom class, and store them in a list (Case 0)");
-			var symbolList = [];
-			traverse(d[0].xmlDoc,symbolList);
-
-			// sort by descending depth
-			symbolList.sort(function(a,b){
-				return b.depth() - a.depth();
-			});
-			d[0].symbolList = symbolList;
-
-		})
-		.then(function(){
-			console.log("[5.1.2] Traverse, wrap symbols with custom class, and store them in a list (Case 1)");
-			var symbolList = [];
-			traverse(d[1].xmlDoc,symbolList);
-
-			// sort by descending depth
-			symbolList.sort(function(a,b){
-				return b.depth() - a.depth();
-			});
-			d[1].symbolList = symbolList;
-
 		})
 		.then(function(){
 			console.log("[5.2.1] Compare color");

@@ -11,6 +11,9 @@ var cssColorName = require('./cssColorName');
 
 var config = require("./config");
 
+var xml2js = require('./lib/xml2js');
+
+
 module.exports = (function(){
 
 

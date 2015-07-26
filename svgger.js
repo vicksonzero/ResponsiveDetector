@@ -221,6 +221,101 @@ module.exports = (function(){
 		}
 	};
 
+	Svgger.prototype.getCenter = function () {
+		var bb = this.getBB();
+		return {
+			x: bb.x,
+			y: bb.y
+		}
+	};
+	Svgger.prototype.getBB = function getBB() {
+		var result = {
+			x: Infinity,
+			y: Infinity,
+			w: 0,
+			h: 0
+		};
+		switch(this.xmlObject['#name']){
+			case "rect":
+				result = {
+					x: this.xmlObject['$'].x || 0,
+					y: this.xmlObject['$'].y || 0,
+					w: this.xmlObject['$'].width || 0,
+					h: this.xmlObject['$'].height || 0
+				};
+				break;
+			case "circle":
+				result = {
+					x: (this.xmlObject['$'].cx || 0) - this.xmlObject['$'].r,
+					y: (this.xmlObject['$'].cy || 0) - this.xmlObject['$'].r,
+					w: (this.xmlObject['$'].cx || 0) + this.xmlObject['$'].r,
+					h: (this.xmlObject['$'].cy || 0) + this.xmlObject['$'].r,
+				};
+				break;
+			case "ellipse":
+				result = {
+					x: (this.xmlObject['$'].cx || 0) - rx,
+					y: (this.xmlObject['$'].cy || 0) - ry,
+					w: (this.xmlObject['$'].cx || 0) + rx,
+					h: (this.xmlObject['$'].cy || 0) + ry,
+				};
+				break;
+			case "line":
+
+				var points = [
+					{x: this.xmlObject['$'].x1, y: this.xmlObject['$'].y1},
+					{x: this.xmlObject['$'].x2, y: this.xmlObject['$'].y2}
+				];
+
+				for (var i = 0; i < points.length; i++) {
+					if(points[i].x < result.x) result.x = points[i].x;
+					if(points[i].y < result.y) result.y = points[i].y;
+					if(points[i].x > result.w) result.w = points[i].x;
+					if(points[i].y > result.h) result.h = points[i].y;
+				}
+
+				return result;
+				break;
+			case "polyline":
+
+				var points = utility.parsePolylineData(this.xmlObject.$.points);
+
+				for (var i = 0; i < points.length; i++) {
+					if(points[i].x < result.x) result.x = points[i].x;
+					if(points[i].y < result.y) result.y = points[i].y;
+					if(points[i].x > result.w) result.w = points[i].x;
+					if(points[i].y > result.h) result.h = points[i].y;
+				}
+
+				return result;
+				break;
+			case "polygon":
+
+				var points = utility.parsePolylineData(this.xmlObject.$.points);
+
+				for (var i = 0; i < points.length; i++) {
+					if(points[i].x < result.x) result.x = points[i].x;
+					if(points[i].y < result.y) result.y = points[i].y;
+					if(points[i].x > result.w) result.w = points[i].x;
+					if(points[i].y > result.h) result.h = points[i].y;
+				}
+
+				return result;
+				break;
+			case "path":
+				throw "FINAL BOSS!";
+				break;
+		}
+		var cl = this.childrenList();
+		for (var i = 0; i < cl.length; i++) {
+			var childBB = cl[i].getBB();
+			if(childBB.x < result.x) result.x = childBB.x;
+			if(childBB.y < result.y) result.y = childBB.y;
+			if(childBB.w > result.w) result.w = childBB.w;
+			if(childBB.w > result.h) result.h = childBB.h;
+		}
+		return result;
+	};
 	Svgger.prototype.compareColorAgainst = function compareColorAgainst(svgger2){
 		// combine fill color and stroke color
 		var color0List = this.getColorList("fill").concat(this.getColorList("stroke"));
