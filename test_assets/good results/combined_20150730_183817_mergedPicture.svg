@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg enable-background="new 0 0 1600 1000" height="1000px" version="1.1" viewBox="0 0 1600 1000" width="1600px" x="0px" y="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="960px" height="1000px" viewBox="0 0 960 1000" enable-background="new 0 0 960 1000" xml:space="preserve">
+    <g id="bg_1_">
+      <rect fill="#A97C50" stroke="#231F20" stroke-miterlimit="10" width="960" height="1000"/>
+      <text transform="matrix(1 0 0 1 496.705624894239 516.0758574586362)" font-size="22">4(2)</text>
+    </g>
+    <g id="content">
+      <rect id="Content_bg" y="141.841309" opacity="0.4" fill="#06FF18" stroke="#231F20" stroke-miterlimit="10" width="211.682617" height="349.206543"/>
+      <text transform="matrix(1 0 0 1 33.000488 186.333008)" font-family="'MyriadPro-Regular'" font-size="22">Item1</text>
+      <text transform="matrix(1 0 0 1 33.000488 227.632813)" font-family="'MyriadPro-Regular'" font-size="22">Item2</text>
+      <text transform="matrix(1 0 0 1 33.000488 268.933105)" font-family="'MyriadPro-Regular'" font-size="22">Item3</text>
+      <text transform="matrix(1 0 0 1 33.000488 310.23291)" font-family="'MyriadPro-Regular'" font-size="22">Item4</text>
+      <text transform="matrix(1 0 0 1 33.000488 351.533203)" font-family="'MyriadPro-Regular'" font-size="22">Item5</text>
+      <text transform="matrix(1 0 0 1 33.000488 392.833008)" font-family="'MyriadPro-Regular'" font-size="22">Item6</text>
+      <text transform="matrix(1 0 0 1 108.14917379835313 333.0683712158211)" font-size="22">6(2)</text>
+    </g>
+    <g id="title">
+      <g id="main">
+        <rect id="bg" x="211.682617" y="141.841309" opacity="0.5" fill="#FF7373" stroke="#231F20" stroke-miterlimit="10" width="748.317383" height="858.158691"/>
+        <text transform="matrix(1 0 0 1 242.611816 186.333008)">
+          <tspan x="0" y="0" font-family="'MyriadPro-Regular'" font-size="20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </tspan>
+          <tspan x="0" y="38" font-family="'MyriadPro-Regular'" font-size="20">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim </tspan>
+          <tspan x="0" y="76" font-family="'MyriadPro-Regular'" font-size="20">veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea </tspan>
+          <tspan x="0" y="114" font-family="'MyriadPro-Regular'" font-size="20">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate </tspan>
+          <tspan x="0" y="152" font-family="'MyriadPro-Regular'" font-size="20">velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat </tspan>
+          <tspan x="0" y="190" font-family="'MyriadPro-Regular'" font-size="20">cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est </tspan>
+          <tspan x="0" y="228" font-family="'MyriadPro-Regular'" font-size="20">laborum.</tspan>
+        </text>
+        <text transform="matrix(1 0 0 1 595.6081436791799 574.4087076905219)" font-size="26">9(3)</text>
+      </g>
+      <rect id="Title_bg" opacity="0.5" fill="#0000FF" stroke="#231F20" stroke-miterlimit="10" width="960" height="141.841309"/>
+      <text transform="matrix(1 0 0 1 197.110352 111.10791)" font-family="'MyriadPro-Regular'" font-size="32">Title!!!!!!</text>
+      <g id="Logo">
+        <rect x="62.362305" y="39.404297" fill="#1CA02B" width="57.503906" height="58.362305"/>
+        <circle fill="#BF2E2E" cx="137.604004" cy="58.000488" r="33.758301"/>
+        <polygon fill="#060087" points="122.727539,58.000488 91.114258,115.218262 164.496094,117.599121 &#x9;&#x9;"/>
+        <text transform="matrix(1 0 0 1 98.33722471476214 81.16261693275524)" font-size="26">12(3)</text>
+        <text transform="matrix(1 0 0 1 145.99604782151366 58.47424343043018)" font-size="26">13(3)</text>
+        <text transform="matrix(1 0 0 1 145.31990018662162 96.70921847752612)" font-size="26">14(3)</text>
+      </g>
+      <text transform="matrix(1 0 0 1 590.9685714061713 576.372428855024)" font-size="22">8(2)</text>
+      <text transform="matrix(1 0 0 1 490.43387550860643 82.67371728280914)" font-size="22">10(2)</text>
+      <text transform="matrix(1 0 0 1 118.29413767209678 78.71724777411008)" font-size="22">11(2)</text>
+    </g>
+    <text transform="matrix(1 0 0 1 496.1637893784791 509.4664774509147)" font-size="18">3(1)</text>
+    <text transform="matrix(1 0 0 1 110.55497926970637 335.82651868554285)" font-size="18">5(1)</text>
+    <text transform="matrix(1 0 0 1 481.8410598859191 512.5134280556813)" font-size="18">7(1)</text>
+    <text transform="matrix(1 0 0 1 Infinity Infinity)" font-size="14">2(0)</text>
+  </svg>
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="960px" y="0px" width="640px" height="1000px" viewBox="0 0 640 1000" enable-background="new 0 0 640 1000" xml:space="preserve">
+    <g id="bg_1_">
+      <rect fill="#A97C50" stroke="#231F20" stroke-width="0.816497" stroke-miterlimit="10" width="640" height="1000"/>
+      <text transform="matrix(1 0 0 1 327.201469168067 519.3886962952092)" font-size="22">17(2)</text>
+    </g>
+    <g id="content">
+      <rect id="Content_bg" y="141.841309" opacity="0.4" fill="#06FF18" stroke="#231F20" stroke-width="1.76094" stroke-miterlimit="10" width="640" height="358.158691"/>
+      <text transform="matrix(1 0 0 1 288.402832 211.670898)" font-family="'MyriadPro-Regular'" font-size="33">Item1</text>
+      <text transform="matrix(1 0 0 1 288.402832 261.370605)" font-family="'MyriadPro-Regular'" font-size="33">Item2</text>
+      <text transform="matrix(1 0 0 1 288.402832 311.069824)" font-family="'MyriadPro-Regular'" font-size="33">Item3</text>
+      <text transform="matrix(1 0 0 1 288.402832 360.769531)" font-family="'MyriadPro-Regular'" font-size="33">Item4</text>
+      <text transform="matrix(1 0 0 1 288.402832 410.46875)" font-family="'MyriadPro-Regular'" font-size="33">Item5</text>
+      <text transform="matrix(1 0 0 1 288.402832 460.168457)" font-family="'MyriadPro-Regular'" font-size="33">Item6</text>
+      <text transform="matrix(1 0 0 1 327.2685691108927 322.37635264834745)" font-size="22">19(2)</text>
+    </g>
+    <g id="title">
+      <g id="main">
+        <rect id="bg" y="500" opacity="0.5" fill="#FF7373" stroke="#231F20" stroke-width="0.705908" stroke-miterlimit="10" width="640" height="500"/>
+        <text transform="matrix(1 0 0 1 30.616699 553.869141)">
+          <tspan x="0" y="0" font-family="'MyriadPro-Regular'" font-size="22">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </tspan>
+          <tspan x="0" y="44" font-family="'MyriadPro-Regular'" font-size="22">eiusmod tempor incididunt ut labore et dolore magna aliqua. </tspan>
+          <tspan x="0" y="88" font-family="'MyriadPro-Regular'" font-size="22">Ut enim ad minim veniam, quis nostrud exercitation ullamco </tspan>
+          <tspan x="0" y="132" font-family="'MyriadPro-Regular'" font-size="22">laboris nisi ut aliquip ex ea commodo consequat. Duis aute </tspan>
+          <tspan x="0" y="176" font-family="'MyriadPro-Regular'" font-size="22">irure dolor in reprehenderit in voluptate velit esse cillum dolore </tspan>
+          <tspan x="0" y="220" font-family="'MyriadPro-Regular'" font-size="22">eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non </tspan>
+          <tspan x="0" y="264" font-family="'MyriadPro-Regular'" font-size="22">proident, sunt in culpa qui officia deserunt mollit anim id est </tspan>
+          <tspan x="0" y="308" font-family="'MyriadPro-Regular'" font-size="22">laborum.</tspan>
+        </text>
+        <text transform="matrix(1 0 0 1 336.6705382941291 759.2452728655189)" font-size="26">22(3)</text>
+      </g>
+      <rect id="Title_bg" opacity="0.5" fill="#0000FF" stroke="#231F20" stroke-width="0.816497" stroke-miterlimit="10" width="640" height="141.841309"/>
+      <text transform="matrix(1 0 0 1 187.110352 111.10791)" font-family="'MyriadPro-Regular'" font-size="32">Title!!!!!!</text>
+      <g id="Logo">
+        <rect x="52.362305" y="39.404297" fill="#1CA02B" width="57.503906" height="58.362305"/>
+        <circle fill="#BF2E2E" cx="127.604004" cy="58.000488" r="33.758301"/>
+        <polygon fill="#060087" points="112.727539,58.000488 81.114258,115.218262 154.496094,117.599121 &#x9;&#x9;"/>
+        <text transform="matrix(1 0 0 1 91.0929963666262 87.9750013127829)" font-size="26">25(3)</text>
+        <text transform="matrix(1 0 0 1 132.6740952391767 60.90314090997923)" font-size="26">26(3)</text>
+        <text transform="matrix(1 0 0 1 121.75735054060912 90.04627855557334)" font-size="26">27(3)</text>
+      </g>
+      <text transform="matrix(1 0 0 1 336.71530133578926 754.2552464641631)" font-size="22">21(2)</text>
+      <text transform="matrix(1 0 0 1 331.90391967073083 71.20063568661344)" font-size="22">23(2)</text>
+      <text transform="matrix(1 0 0 1 122.47106366562127 82.678043055565)" font-size="22">24(2)</text>
+    </g>
+    <text transform="matrix(1 0 0 1 321.9892914732918 504.5194956474006)" font-size="18">16(1)</text>
+    <text transform="matrix(1 0 0 1 326.4867749949917 327.13433531774564)" font-size="18">18(1)</text>
+    <text transform="matrix(1 0 0 1 339.7667209431529 501.3618557853624)" font-size="18">20(1)</text>
+    <text transform="matrix(1 0 0 1 Infinity Infinity)" font-size="14">15(0)</text>
+  </svg>
+</svg>

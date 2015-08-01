@@ -3,7 +3,6 @@
   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="960px" height="1000px" viewBox="0 0 960 1000" enable-background="new 0 0 960 1000" xml:space="preserve">
     <g id="bg_1_">
       <rect fill="#A97C50" stroke="#231F20" stroke-miterlimit="10" width="960" height="1000"/>
-      <text transform="matrix(1 0 0 1 20 20)" font-size="22">4</text>
     </g>
     <g id="content">
       <rect id="Content_bg" y="141.841309" opacity="0.4" fill="#06FF18" stroke="#231F20" stroke-miterlimit="10" width="211.682617" height="349.206543"/>
@@ -13,7 +12,6 @@
       <text transform="matrix(1 0 0 1 33.000488 310.23291)" font-family="'MyriadPro-Regular'" font-size="22">Item4</text>
       <text transform="matrix(1 0 0 1 33.000488 351.533203)" font-family="'MyriadPro-Regular'" font-size="22">Item5</text>
       <text transform="matrix(1 0 0 1 33.000488 392.833008)" font-family="'MyriadPro-Regular'" font-size="22">Item6</text>
-      <text transform="matrix(1 0 0 1 20 141.84130920)" font-size="22">6</text>
     </g>
     <g id="title">
       <g id="main">
@@ -27,7 +25,6 @@
           <tspan x="0" y="190" font-family="'MyriadPro-Regular'" font-size="20">cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est </tspan>
           <tspan x="0" y="228" font-family="'MyriadPro-Regular'" font-size="20">laborum.</tspan>
         </text>
-        <text transform="matrix(1 0 0 1 211.68261720 141.84130920)" font-size="22">9</text>
       </g>
       <rect id="Title_bg" opacity="0.5" fill="#0000FF" stroke="#231F20" stroke-miterlimit="10" width="960" height="141.841309"/>
       <text transform="matrix(1 0 0 1 197.110352 111.10791)" font-family="'MyriadPro-Regular'" font-size="32">Title!!!!!!</text>
@@ -35,18 +32,8 @@
         <rect x="62.362305" y="39.404297" fill="#1CA02B" width="57.503906" height="58.362305"/>
         <circle fill="#BF2E2E" cx="137.604004" cy="58.000488" r="33.758301"/>
         <polygon fill="#060087" points="122.727539,58.000488 91.114258,115.218262 164.496094,117.599121 &#x9;&#x9;"/>
-        <text transform="matrix(1 0 0 1 62.36230520 39.40429720)" font-size="22">12</text>
-        <text transform="matrix(1 0 0 1 123.845703 44.242186999999994)" font-size="22">13</text>
-        <text transform="matrix(1 0 0 1 111.114258 78.00048799999999)" font-size="22">14</text>
       </g>
-      <text transform="matrix(1 0 0 1 211.68261720 141.84130920)" font-size="22">8</text>
-      <text transform="matrix(1 0 0 1 20 20)" font-size="22">10</text>
-      <text transform="matrix(1 0 0 1 62.36230520 44.242186999999994)" font-size="22">11</text>
     </g>
-    <text transform="matrix(1 0 0 1 20 20)" font-size="22">3</text>
-    <text transform="matrix(1 0 0 1 20 141.84130920)" font-size="22">5</text>
-    <text transform="matrix(1 0 0 1 20 20)" font-size="22">7</text>
-    <text transform="matrix(1 0 0 1 20 20)" font-size="22">2</text>
   </svg>
   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="960px" y="0px" width="640px" height="1000px" viewBox="0 0 640 1000" enable-background="new 0 0 640 1000" xml:space="preserve">
     <g id="bg_1_">
@@ -84,4 +71,60 @@
       </g>
     </g>
   </svg>
+  <g>
+    <rect x="0px" y="0px" height="1000px" width="960px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 490.81412316765636 511.6405589086935)" font-size="22">4(2)</text>
+    <rect x="0px" y="0px" height="1000px" width="960px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 498.4560377057642 507.0892587583512)" font-size="18">3(1)</text>
+    <rect x="0px" y="141.841309px" height="349.206543px" width="211.682617px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 120.5788302732042 319.28649801386973)" font-size="22">6(2)</text>
+    <rect x="0px" y="141.841309px" height="349.206543px" width="211.682617px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 111.13405935777044 326.4735304200881)" font-size="18">5(1)</text>
+    <rect x="211.682617px" y="141.841309px" height="858.158691px" width="748.3173830000001px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 596.1716294273144 587.9476875365747)" font-size="26">9(3)</text>
+    <rect x="211.682617px" y="141.841309px" height="858.158691px" width="748.3173830000001px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 596.530072799266 576.6833870411886)" font-size="22">8(2)</text>
+    <rect x="0px" y="0px" height="141.841309px" width="960px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 483.26151272282004 75.79131677011382)" font-size="22">10(2)</text>
+    <rect x="62.362305px" y="39.404297px" height="58.362305000000006px" width="57.50390599999999px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 95.86801214360314 69.15073671936048)" font-size="26">12(3)</text>
+    <rect x="103.845703px" y="24.242186999999994px" height="67.516602px" width="67.51660199999999px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 149.8356519915753 73.35822573211985)" font-size="26">13(3)</text>
+    <rect x="91.114258px" y="58.000488px" height="59.598633px" width="73.38183599999999px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 141.2704049422229 104.61422951489072)" font-size="26">14(3)</text>
+    <rect x="62.362305px" y="24.242186999999994px" height="93.356934px" width="109px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 128.59119787117868 88.22886226720445)" font-size="22">11(2)</text>
+    <rect x="0px" y="0px" height="1000px" width="960px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 498.6492834519595 506.03347456548363)" font-size="18">7(1)</text>
+    <rect x="0px" y="0px" height="1000px" width="960px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 483.45186786726117 517.6972271827981)" font-size="14">2(0)</text>
+    <rect x="960px" y="0px" height="1000px" width="640px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1287.7431175019592 519.3400271004066)" font-size="22">17(2)</text>
+    <rect x="960px" y="0px" height="1000px" width="640px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1291.2988601485267 515.1785881817341)" font-size="18">16(1)</text>
+    <rect x="960px" y="141.841309px" height="358.158691px" width="640px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1282.601884584874 327.8904663185624)" font-size="22">19(2)</text>
+    <rect x="960px" y="141.841309px" height="358.158691px" width="640px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1289.9144990509376 333.90410274463125)" font-size="18">18(1)</text>
+    <rect x="960px" y="500px" height="500px" width="640px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1281.6746842395514 767.5672754924744)" font-size="26">22(3)</text>
+    <rect x="960px" y="500px" height="500px" width="640px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1288.3980354387313 756.423014565371)" font-size="22">21(2)</text>
+    <rect x="960px" y="0px" height="141.841309px" width="640px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1282.6666637836024 81.84443666795623)" font-size="22">23(2)</text>
+    <rect x="1012.362305px" y="39.404297px" height="58.362305000000006px" width="57.50390599999999px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1041.85434977275 77.859615931278)" font-size="26">25(3)</text>
+    <rect x="1053.845703px" y="24.242186999999994px" height="67.516602px" width="67.51660199999999px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1092.430711742177 64.20672886353927)" font-size="26">26(3)</text>
+    <rect x="1041.114258px" y="58.000488px" height="59.598633px" width="73.38183599999999px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1084.8421779366965 88.81434826243054)" font-size="26">27(3)</text>
+    <rect x="1012.362305px" y="24.242186999999994px" height="93.356934px" width="109px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1085.0341001688917 83.34726678229205)" font-size="22">24(2)</text>
+    <rect x="960px" y="0px" height="1000px" width="640px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1299.4533043494448 515.418530642055)" font-size="18">20(1)</text>
+    <rect x="960px" y="0px" height="1000px" width="640px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 1296.8331340933219 512.4380856426433)" font-size="14">15(0)</text>
+    <rect x="0px" y="0px" height="1000px" width="1600px" stroke="blue" fill="none"/>
+    <text transform="matrix(1 0 0 1 804.0165771823376 517.3593734251335)" font-size="14">28(0)</text>
+  </g>
 </svg>

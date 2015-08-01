@@ -34,15 +34,16 @@ module.exports = (function(){
 				path:"test_assets/perfect_desktop.svg",
 				xmlString:"",
 				xmlDoc:null,
-				symbolList:[]
-
+				symbolList:[],
+				rootSymbol: null
 			},
 			{
 				name:"mobile",
 				path:"test_assets/perfect_mobile.svg",
 				xmlString:"",
 				xmlDoc:null,
-				symbolList:[]
+				symbolList:[],
+				rootSymbol: null
 			}
 		];
 		// promise template
@@ -92,24 +93,24 @@ module.exports = (function(){
 		.then(function(){
 			console.log("[5.1.1] Traverse, wrap symbols with custom class, and store them in a list (Case 0)");
 			var symbolList = [];
-			traverse(d[0].xmlDoc,symbolList);
+			d[0].rootSymbol = traverse(d[0].xmlDoc,symbolList);
 
-			for (var s in symbolList) {
-				var parentSvg = symbolList[s].parentSvgger();
-				if(parentSvg == null) parentSvg = symbolList[s];
-				var center = symbolList[s].getCenter();
-				if(! parentSvg.xmlObject.hasOwnProperty("$$")){
-					parentSvg.xmlObject["$$"] = [];
-				}
-				parentSvg.xmlObject["$$"].push({
-					"#name": "text",
-					"$": {
-						"transform": "matrix(1 0 0 1 "+ (center.x + 20) +" "+ (center.y + 20) +")",
-						"font-size": "22"
-					},
-					_: ""+symbolList[s].index()
-				});
-			}
+			// for (var s in symbolList) {
+			// 	var parentSvg = symbolList[s].parentSvgger();
+			// 	if(parentSvg == null) parentSvg = symbolList[s];
+			// 	var center = symbolList[s].getCenter();
+			// 	if(! parentSvg.xmlObject.hasOwnProperty("$$")){
+			// 		parentSvg.xmlObject["$$"] = [];
+			// 	}
+			// 	parentSvg.xmlObject["$$"].push({
+			// 		"#name": "text",
+			// 		"$": {
+			// 			"transform": "matrix(1 0 0 1 "+ (center.x + Math.random()*20) +" "+ (center.y + Math.random()*20) +")",
+			// 			"font-size": ""+ (14 + symbolList[s].depth()*4)
+			// 		},
+			// 		_: ""+symbolList[s].index() + "(" + symbolList[s].depth() + ")"
+			// 	});
+			// }
 
 			// sort by descending depth
 			symbolList.sort(function(a,b){
@@ -121,25 +122,25 @@ module.exports = (function(){
 		.then(function(){
 			console.log("[5.1.2] Traverse, wrap symbols with custom class, and store them in a list (Case 1)");
 			var symbolList = [];
-			traverse(d[1].xmlDoc,symbolList);
+			d[1].rootSymbol = traverse(d[1].xmlDoc,symbolList);
 
-			// write everyone's id on the picture
-			for (var s in symbolList) {
-				var parentSvg = symbolList[s].parentSvgger();
-				if(parentSvg == null) parentSvg = symbolList[s];
-				var center = symbolList[s].getCenter();
-				if(! parentSvg.xmlObject.hasOwnProperty("$$")){
-					parentSvg.xmlObject["$$"] = [];
-				}
-				parentSvg.xmlObject["$$"].push({
-					"#name": "text",
-					"$": {
-						"transform": "matrix(1 0 0 1 "+ (center.x + 20) +" "+ (center.y + 20) +")",
-						"font-size": "22"
-					},
-					_: ""+symbolList[s].index()
-				});
-			}
+			// // write everyone's id on the picture
+			// for (var s in symbolList) {
+			// 	var parentSvg = symbolList[s].parentSvgger();
+			// 	if(parentSvg == null) parentSvg = symbolList[s];
+			// 	var center = symbolList[s].getCenter();
+			// 	if(! parentSvg.xmlObject.hasOwnProperty("$$")){
+			// 		parentSvg.xmlObject["$$"] = [];
+			// 	}
+			// 	parentSvg.xmlObject["$$"].push({
+			// 		"#name": "text",
+			// 		"$": {
+			// 			"transform": "matrix(1 0 0 1 "+ (center.x + Math.random()*20) +" "+ (center.y + Math.random()*20) +")",
+			// 			"font-size": ""+ (14 + symbolList[s].depth()*4)
+			// 		},
+			// 		_: ""+symbolList[s].index() + "(" + symbolList[s].depth() + ")"
+			// 	});
+			// }
 
 			// sort by descending depth
 			symbolList.sort(function(a,b){
@@ -172,6 +173,37 @@ module.exports = (function(){
 			var w1 = parseInt(mergedPicture["$$"][1]["$"].width.split("px")[0]);
 			mergedPicture["$"].width = w0 + w1 + "px";
 			mergedPicture["$$"][1]["$"].x = mergedPicture["$$"][0]["$"].width;
+
+			for(var s in d[1].symbolList){
+				d[1].symbolList[s].BB(null);
+			}
+			d[0].rootSymbol.BB(null);
+			d[1].rootSymbol.BB(null);
+
+			var n = Svgger(mergedPicture);
+			var childrenList = [];
+
+			var child;
+			child = d[0].rootSymbol;
+			child.parentSvgger(n);
+			childrenList.push(child);
+
+			child = d[1].rootSymbol;
+			child.parentSvgger(n);
+			childrenList.push(child);
+
+			n.childrenList(childrenList);
+
+
+			var annotationList = traverseAddAnnotation(n);
+
+			mergedPicture["$$"].push( {
+				"#name":"g",
+				"$":{
+				},
+				"$$":annotationList
+			} );
+
 			dumpPhoto(mergedPicture, "mergedPicture");
 		})
 		.then(function(){
@@ -260,6 +292,60 @@ module.exports = (function(){
 		// queue up in symbol list
 		symbolList.push(n);
 		return n;
+	}
+
+	function traverseAddAnnotation(svggerObj){
+		var result = [];
+
+		// my children's
+		var clist = svggerObj.childrenList();
+		if(clist.length > 0) {
+			for (var i = 0; i < clist.length; i++) {
+				var annotations2 = traverseAddAnnotation(clist[i]);
+				result = result.concat(annotations2);
+			}
+		}
+
+		// add mine
+		var bb = svggerObj.getBB();
+		var globalPos;
+		if(svggerObj.parentSvgger() !== null) {
+			globalPos = svggerObj.parentSvgger().getGlobalPos();
+		}else{
+			globalPos = svggerObj.getGlobalPos();
+		}
+
+		var xx = globalPos.x + bb.p1.x;
+		var yy = globalPos.y + bb.p1.y;
+		var ww = bb.p2.x - bb.p1.x;
+		var hh = bb.p2.y - bb.p1.y;
+
+		var bboxXMLObject = {
+			"#name":"rect",
+			"$":{
+				"x": ""+xx+"px",
+				"y": ""+yy+"px",
+				"height": ""+hh+"px",
+				"width": ""+ww+"px",
+				"stroke": "blue",
+				"fill": "none"
+			}
+		};
+		result.push(bboxXMLObject);
+
+		var textXMLObject = {
+			"#name":"text",
+			"$":{
+				"transform": "matrix(1 0 0 1 "+ (xx + ww/2 + Math.random()*20) +" "+ (yy + hh/2 + Math.random()*20) +")",
+				"font-size": ""+ (14 + svggerObj.depth()*4)
+			},
+			_: ""+svggerObj.index() + "(" + svggerObj.depth() + ")"
+		};
+		result.push(textXMLObject);
+
+
+
+		return result;
 	}
 
 	function compareLogo(g1, g2){

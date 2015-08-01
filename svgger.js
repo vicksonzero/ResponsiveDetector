@@ -14,7 +14,7 @@ var cssColorName = require('./cssColorName');
 
 var config = require("./config");
 
-var utility = require('./utility');
+var Utility = require('./utility');
 
 // wrapper class for xml2js, used in svg context
 
@@ -33,6 +33,7 @@ module.exports = (function(){
 		this._depth = 0;
 		this._index = 0;
 		this._match = null;
+		this._BB = null;
 	}
 
 	function makeClone(obj){
@@ -104,6 +105,12 @@ module.exports = (function(){
 		}
 		this._index = val;
 	};
+	Svgger.prototype.BB = function (val) {
+		if(val === undefined){
+			return this._BB;
+		}
+		this._BB = val;
+	};
 	Svgger.prototype.depth = function (val) {
 		if(val === undefined){
 			return this._depth;
@@ -123,7 +130,7 @@ module.exports = (function(){
 		this._parent = val;
 	};
 
-	Svgger.prototype.toString = function(){
+	Svgger.prototype.toString = function toString(){
 		var str = "";
 		if(this.xmlObject.hasOwnProperty("#name")){
 			str += this.xmlObject['#name'];
@@ -137,7 +144,28 @@ module.exports = (function(){
 		return str;
 
 	};
+	Svgger.prototype.getPos = function getPos(){
+		var bb = Utility.getBoundingBox(this.xmlObject);
+		//var bb = this.getBB();
+		return {
+			x: bb.p1.x,
+			y: bb.p1.y
+		};
 
+	};
+	Svgger.prototype.getGlobalPos = function getGlobalPos(){
+		var myParent = this.parentSvgger();
+
+		if(myParent == null) return this.getPos();
+
+		var parentPos = myParent.getGlobalPos();
+		var myPos = this.getPos();
+		return {
+			x:myPos.x + parentPos.x,
+			y:myPos.y + parentPos.y
+		};
+
+	};
 
 	/*
 	 * Color functions
@@ -187,14 +215,14 @@ module.exports = (function(){
 	Svgger.prototype.getLocusList = function getLocusList(isRoot) {
 		switch(this.xmlObject['#name']){
 			case "rect":
-				return utility.rectToPointsList(this.xmlObject, config.pathSegmentLength);
+				return Utility.rectToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "circle":
-				return utility.circleToPointsList(this.xmlObject, config.pathSegmentLength);
+				return Utility.circleToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "ellipse":
 				throw "BOSS!";
-				return utility.ellipseToPointsList(this.xmlObject, config.pathSegmentLength);
+				return Utility.ellipseToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "line":
 				var p1 = {
@@ -205,13 +233,13 @@ module.exports = (function(){
 					x: this.xmlObject.$.x2 || 0,
 					y: this.xmlObject.$.y2 || 0
 				};
-				return utility.lineToPointsList(p1, p2, config.pathSegmentLength, true);
+				return Utility.lineToPointsList(p1, p2, config.pathSegmentLength, true);
 				break;
 			case "polyline":
-				return utility.polylineToPointsList(this.xmlObject, config.pathSegmentLength);
+				return Utility.polylineToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "polygon":
-				return utility.polygonToPointsList(this.xmlObject, config.pathSegmentLength);
+				return Utility.polygonToPointsList(this.xmlObject, config.pathSegmentLength);
 				break;
 			case "path":
 				throw "FINAL BOSS!";
@@ -224,96 +252,49 @@ module.exports = (function(){
 	Svgger.prototype.getCenter = function () {
 		var bb = this.getBB();
 		return {
-			x: bb.x,
-			y: bb.y
+			x: (bb.p1.x + bb.p2.x)/2,
+			y: (bb.p1.y + bb.p2.y)/2
 		}
 	};
 	Svgger.prototype.getBB = function getBB() {
+		// cached?
+		var cached = this.BB();
+		if(cached != null) return cached;
+
 		var result = {
-			x: Infinity,
-			y: Infinity,
-			w: 0,
-			h: 0
+			p1:{
+				x: Infinity,
+				y: Infinity
+			},
+			p2:{
+				x: 0,
+				y: 0
+			}
 		};
-		switch(this.xmlObject['#name']){
-			case "rect":
-				result = {
-					x: this.xmlObject['$'].x || 0,
-					y: this.xmlObject['$'].y || 0,
-					w: this.xmlObject['$'].width || 0,
-					h: this.xmlObject['$'].height || 0
-				};
-				break;
-			case "circle":
-				result = {
-					x: (this.xmlObject['$'].cx || 0) - this.xmlObject['$'].r,
-					y: (this.xmlObject['$'].cy || 0) - this.xmlObject['$'].r,
-					w: (this.xmlObject['$'].cx || 0) + this.xmlObject['$'].r,
-					h: (this.xmlObject['$'].cy || 0) + this.xmlObject['$'].r,
-				};
-				break;
-			case "ellipse":
-				result = {
-					x: (this.xmlObject['$'].cx || 0) - rx,
-					y: (this.xmlObject['$'].cy || 0) - ry,
-					w: (this.xmlObject['$'].cx || 0) + rx,
-					h: (this.xmlObject['$'].cy || 0) + ry,
-				};
-				break;
-			case "line":
-
-				var points = [
-					{x: this.xmlObject['$'].x1, y: this.xmlObject['$'].y1},
-					{x: this.xmlObject['$'].x2, y: this.xmlObject['$'].y2}
-				];
-
-				for (var i = 0; i < points.length; i++) {
-					if(points[i].x < result.x) result.x = points[i].x;
-					if(points[i].y < result.y) result.y = points[i].y;
-					if(points[i].x > result.w) result.w = points[i].x;
-					if(points[i].y > result.h) result.h = points[i].y;
+		var myBB = Utility.getBoundingBox(this.xmlObject);
+		if(this.xmlObject["#name"]!=="g"){
+			result = {
+				p1:{
+					x: Math.min(result.p1.x, myBB.p1.x),
+					y: Math.min(result.p1.y, myBB.p1.y)
+				},
+				p2:{
+					x:Math.max(result.p2.x, myBB.p2.x),
+					y:Math.max(result.p2.y, myBB.p2.y)
 				}
-
-				return result;
-				break;
-			case "polyline":
-
-				var points = utility.parsePolylineData(this.xmlObject.$.points);
-
-				for (var i = 0; i < points.length; i++) {
-					if(points[i].x < result.x) result.x = points[i].x;
-					if(points[i].y < result.y) result.y = points[i].y;
-					if(points[i].x > result.w) result.w = points[i].x;
-					if(points[i].y > result.h) result.h = points[i].y;
-				}
-
-				return result;
-				break;
-			case "polygon":
-
-				var points = utility.parsePolylineData(this.xmlObject.$.points);
-
-				for (var i = 0; i < points.length; i++) {
-					if(points[i].x < result.x) result.x = points[i].x;
-					if(points[i].y < result.y) result.y = points[i].y;
-					if(points[i].x > result.w) result.w = points[i].x;
-					if(points[i].y > result.h) result.h = points[i].y;
-				}
-
-				return result;
-				break;
-			case "path":
-				throw "FINAL BOSS!";
-				break;
+			};
 		}
+
+
 		var cl = this.childrenList();
 		for (var i = 0; i < cl.length; i++) {
 			var childBB = cl[i].getBB();
-			if(childBB.x < result.x) result.x = childBB.x;
-			if(childBB.y < result.y) result.y = childBB.y;
-			if(childBB.w > result.w) result.w = childBB.w;
-			if(childBB.w > result.h) result.h = childBB.h;
+			result.p1.x = Math.min(result.p1.x, myBB.p1.x + childBB.p1.x);
+			result.p1.y = Math.min(result.p1.y, myBB.p1.y + childBB.p1.y);
+			result.p2.x = Math.max(result.p2.x, myBB.p1.x + childBB.p2.x);
+			result.p2.y = Math.max(result.p2.y, myBB.p1.y + childBB.p2.y);
 		}
+		this.BB(result);
 		return result;
 	};
 	Svgger.prototype.compareColorAgainst = function compareColorAgainst(svgger2){
@@ -321,8 +302,8 @@ module.exports = (function(){
 		var color0List = this.getColorList("fill").concat(this.getColorList("stroke"));
 		var color1List = svgger2.getColorList("fill").concat(svgger2.getColorList("stroke"));
 		// sort according to h > s > v precedence
-		utility.sortColor(color0List);
-		utility.sortColor(color1List);
+		Utility.sortColor(color0List);
+		Utility.sortColor(color1List);
 		//
 		var score = compareColorComponent(color0List, color1List);
 		console.log(this.index() + "vs" + svgger2.index() + ":  " + twoDP(score*100) + "%");
@@ -339,7 +320,7 @@ module.exports = (function(){
 			// HACK: Omit the rest of the colors??????
 
 			for (var i = 0; i < len; i++) {
-				var weightedScore = utility.compareColorHSV(colorList1[i], colorList2[i]);
+				var weightedScore = Utility.compareColorHSV(colorList1[i], colorList2[i]);
 				sum += weightedScore;
 
 			}
@@ -352,7 +333,7 @@ module.exports = (function(){
 		var color0List = this.getAllLocusList();
 		var color1List = svgger2.getAllLocusList();
 		//
-		var hd = utility.hausdorffDistance(color0List, color1List);
+		var hd = Utility.hausdorffDistance(color0List, color1List);
 		var score = 1/( 1+ hd );
 		console.log(this.index() + "vs" + svgger2.index() + ":  " + twoDP(score*100) + "%");
 

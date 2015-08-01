@@ -226,44 +226,44 @@ module.exports = (function(){
 		// 4 edges NESW
 		// N
 		sidePoints = Utility.lineToPointsList({
-				x: parseFloat(xmlObject.$.x || 0),//p1
-				y: parseFloat(xmlObject.$.y || 0)
+				x: Utility.parseMetric(xmlObject.$.x || 0),//p1
+				y: Utility.parseMetric(xmlObject.$.y || 0)
 			},{
-				x: parseFloat(xmlObject.$.width),//p2
-				y: parseFloat(xmlObject.$.y || 0)
+				x: Utility.parseMetric(xmlObject.$.width || 0),//p2
+				y: Utility.parseMetric(xmlObject.$.y || 0)
 			},
 			intervalLength);
 		points = points.concat(sidePoints);
 
 		// E
 		sidePoints = Utility.lineToPointsList({
-			x: parseFloat(xmlObject.$.width),//p1
-			y: parseFloat(xmlObject.$.y || 0)
+			x: Utility.parseMetric(xmlObject.$.width || 0),//p1
+			y: Utility.parseMetric(xmlObject.$.y || 0)
 		},{
-			x: parseFloat(xmlObject.$.width),//p2
-			y: parseFloat(xmlObject.$.height)
+			x: Utility.parseMetric(xmlObject.$.width || 0),//p2
+			y: Utility.parseMetric(xmlObject.$.height || 0)
 		},
 		intervalLength);
 		points = points.concat(sidePoints);
 
 		// S
 		sidePoints = Utility.lineToPointsList({
-			x: parseFloat(xmlObject.$.width),//p1
-			y: parseFloat(xmlObject.$.height)
+			x: Utility.parseMetric(xmlObject.$.width || 0),//p1
+			y: Utility.parseMetric(xmlObject.$.height || 0)
 		},{
-			x: parseFloat(xmlObject.$.x || 0),//p2
-			y: parseFloat(xmlObject.$.height)
+			x: Utility.parseMetric(xmlObject.$.x || 0),//p2
+			y: Utility.parseMetric(xmlObject.$.height || 0)
 		},
 		intervalLength);
 		points = points.concat(sidePoints);
 
 		// S
 		sidePoints = Utility.lineToPointsList({
-				x: parseFloat(xmlObject.$.x || 0),//p1
-				y: parseFloat(xmlObject.$.height)
+				x: Utility.parseMetric(xmlObject.$.x || 0),//p1
+				y: Utility.parseMetric(xmlObject.$.height || 0)
 			},{
-				x: parseFloat(xmlObject.$.x || 0),//p2
-				y: parseFloat(xmlObject.$.y || 0)
+				x: Utility.parseMetric(xmlObject.$.x || 0),//p2
+				y: Utility.parseMetric(xmlObject.$.y || 0)
 			},
 			intervalLength);
 		points = points.concat(sidePoints);
@@ -275,9 +275,9 @@ module.exports = (function(){
 
 	Utility.circleToPointsList = function circleToPointsList(xmlObject, intervalLength) {
 		var points = [];
-		var cx = parseFloat(xmlObject.$.cx);
-		var cy = parseFloat(xmlObject.$.cy);
-		var r  = parseFloat(xmlObject.$.r);
+		var cx = Utility.parseMetric(xmlObject.$.cx);
+		var cy = Utility.parseMetric(xmlObject.$.cy);
+		var r  = Utility.parseMetric(xmlObject.$.r);
 		var perimeter = 2 * r * Math.PI;
 		var intervals = perimeter/intervalLength;
 		var angularIntervals = 2 * Math.PI / intervals;
@@ -316,6 +316,99 @@ module.exports = (function(){
 			return maxD;
 		}
 	};
+	Utility.getBoundingBox = function getBoundingBox(xmlObject) {
+
+		var result = {
+			p1:{
+				x: Infinity,
+				y: Infinity
+			},
+			p2:{
+				x:0,
+				y:0
+			}
+		};
+		switch(xmlObject['#name']){
+			case "svg":
+			case "g":
+			case "rect":
+				result = {
+					p1:{
+						x: Utility.parseMetric(xmlObject.$.x || 0),
+						y: Utility.parseMetric(xmlObject.$.y || 0)
+					},
+					p2:{
+						x: Utility.parseMetric(xmlObject.$.x || 0) + Utility.parseMetric(xmlObject.$.width  || 0),
+						y: Utility.parseMetric(xmlObject.$.y || 0) + Utility.parseMetric(xmlObject.$.height || 0)
+					}
+				};
+				break;
+			case "circle":
+				result = {
+					p1:{
+						x: Utility.parseMetric(xmlObject.$.cx || 0) - Utility.parseMetric(xmlObject.$.r || 0),
+						y: Utility.parseMetric(xmlObject.$.cy || 0) - Utility.parseMetric(xmlObject.$.r || 0)
+					},
+					p2:{
+						x: Utility.parseMetric(xmlObject.$.cx || 0) + Utility.parseMetric(xmlObject.$.r  || 0),
+						y: Utility.parseMetric(xmlObject.$.cy || 0) + Utility.parseMetric(xmlObject.$.r || 0)
+					}
+				};
+				break;
+			case "ellipse":
+				result = {
+					p1:{
+						x: Utility.parseMetric(xmlObject.$.cx || 0) - Utility.parseMetric(xmlObject.$.rx || 0),
+						y: Utility.parseMetric(xmlObject.$.cy || 0) - Utility.parseMetric(xmlObject.$.ry || 0)
+					},
+					p2:{
+						x: Utility.parseMetric(xmlObject.$.cx || 0) + Utility.parseMetric(xmlObject.$.rx  || 0),
+						y: Utility.parseMetric(xmlObject.$.cy || 0) + Utility.parseMetric(xmlObject.$.ry || 0)
+					}
+				};
+				break;
+			case "line":
+				result = {
+					p1:{
+						x: Utility.parseMetric(xmlObject.$.x1 || 0),
+						y: Utility.parseMetric(xmlObject.$.y1 || 0)
+					},
+					p2:{
+						x: Utility.parseMetric(xmlObject.$.x2 || 0),
+						y: Utility.parseMetric(xmlObject.$.y2 || 0)
+					}
+				};
+
+				break;
+			case "polygon":
+			case "polyline":
+				// parse points
+				var vertices = Utility.parsePolylineData(xmlObject.$.points);
+				// for each point,
+				for (var i = 0; i < vertices.length; i++) {
+					result.p1.x = Math.min(result.p1.x, vertices[i].x);
+					result.p1.y = Math.min(result.p1.y, vertices[i].y);
+					result.p2.x = Math.max(result.p2.x, vertices[i].x);
+					result.p2.y = Math.max(result.p2.y, vertices[i].y);
+				}
+				break;
+			case "path":
+				throw "FINAL BOSS!";
+				break;
+			default:
+				// do nothing
+		}
+		return {
+			p1:{
+				x: Math.min(result.p1.x, result.p2.x),
+				y: Math.min(result.p1.y, result.p2.y)
+			},
+			p2:{
+				x:Math.max(result.p1.x, result.p2.x),
+				y:Math.max(result.p1.y, result.p2.y)
+			}
+		};
+	};
 
 	Utility.manhattanDistance = function manhattanDistance(p1, p2){
 		return Math.abs(p1.x-p2.x) + Math.abs(p1.y-p2.y);
@@ -330,6 +423,13 @@ module.exports = (function(){
 			});
 		}
 		return result;
+	};
+	Utility.parseMetric = function parseMetric(val){
+		if(typeof val === "string"){
+			return parseFloat(val.split("px")[0]);
+		}else{
+			return parseFloat(val);
+		}
 	};
 
 

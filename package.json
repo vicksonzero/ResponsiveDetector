@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "node testrunner.js",
-    "start": "node-debug test.js"
+    "start": "node test.js",
+    "debug": "node-debug test.js"
   },
   "repository": {
     "type": "git",
