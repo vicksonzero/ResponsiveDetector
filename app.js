@@ -250,7 +250,7 @@ module.exports = (function(){
 			});
 			console.log("Best match here");
 
-			dumpPhoto(xmlObject, filename);
+
 
 		})
 		.then(function(){
@@ -269,7 +269,14 @@ module.exports = (function(){
 					if(svggerObj.scores.list.length <=0) return result;
 
 					var scoreList = [];
-
+					scoreList.push({
+						"#name":"tspan",
+						"$":{
+							"x": 0,
+							"dy": "1.2em"
+						},
+						"_": svggerObj.index()
+					});
 					svggerObj.scores.list.forEach(function(element, index, array){
 						if(index > 2) return;
 						scoreList.push({
@@ -308,7 +315,7 @@ module.exports = (function(){
 					var yy2 = globalPos.y + bb.p1.y;
 					var ww2 = bb.p2.x - bb.p1.x;
 					var hh2 = bb.p2.y - bb.p1.y;
-
+					var color = (svggerObj.xmlObject["#name"] == "text"?"blue":"lime");
 					var lineXMLObject = {
 						"#name":"line",
 						"$":{
@@ -316,7 +323,7 @@ module.exports = (function(){
 							"y1": ""+(yy + hh/2)+"px",
 							"x2": ""+(xx2 + ww2/2)+"px",
 							"y2": ""+(yy2 + hh2/2)+"px",
-							"stroke": "lime",
+							"stroke": color,
 							"fill": "none"
 						}
 					};
@@ -397,9 +404,6 @@ module.exports = (function(){
 		var newAnnotations = callback(svggerObj,xx,yy,ww,hh);
 		result = result.concat(newAnnotations);
 
-
-
-
 		return result;
 	}
 
@@ -407,9 +411,6 @@ module.exports = (function(){
 		console.log("compareLogo start");
 	}
 
-	function combineSvg(root1, root2){
-
-	}
 	function zeroPad(a){
 		if(a<10){
 			return "0"+a;
@@ -489,6 +490,29 @@ module.exports = (function(){
 		} );
 
 		dumpPhoto(mergedPicture, filenameSuffix);
+	}
+
+
+	function exportPhoto(svgger, filenameSuffix) {
+		var imageXMLObject = {
+			"#name":"svg",
+			"$":{
+				"enable-background": "new 0 0 1600 1000",
+				"height": "1000px",
+				"version": "1.1",
+				"viewBox": "0 0 1600 1000",
+				"width": "1600px",
+				"x": "0px",
+				"y": "0px",
+				"xml:space": "preserve",
+				"xmlns": "http://www.w3.org/2000/svg",
+				"xmlns:xlink": "http://www.w3.org/1999/xlink"
+			},
+			"$$":[
+				svgger.xmlObject
+			]
+		};
+		dumpPhoto(imageXMLObject, filenameSuffix);
 	}
 
 
