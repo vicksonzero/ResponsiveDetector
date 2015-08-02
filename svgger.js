@@ -26,13 +26,14 @@ module.exports = (function(){
 		this.scores = {
 			color:{},
 			shape:{},
-			final:{}
+			final:{},
+			list:[]
 		};
+		this._match = [-1,-1,-1];
 		this._children = [];
 		this._parent = null;
 		this._depth = 0;
 		this._index = 0;
-		this._match = null;
 		this._BB = null;
 	}
 
@@ -104,6 +105,12 @@ module.exports = (function(){
 			return this._index;
 		}
 		this._index = val;
+	};
+	Svgger.prototype.match = function (val) {
+		if(val === undefined){
+			return this._match;
+		}
+		this._match = val;
 	};
 	Svgger.prototype.BB = function (val) {
 		if(val === undefined){
@@ -309,6 +316,7 @@ module.exports = (function(){
 		console.log(this.index() + "vs" + svgger2.index() + ":  " + twoDP(score*100) + "%");
 		// save the score in my score list
 		this.scores.color[svgger2.index()] = score;
+		svgger2.scores.color[this.index()] = score;
 
 		// nothing to return
 
@@ -330,29 +338,58 @@ module.exports = (function(){
 	};
 
 	Svgger.prototype.compareShapeAgainst = function compareShapeAgainst(svgger2){
-		var color0List = this.getAllLocusList();
-		var color1List = svgger2.getAllLocusList();
+		var points0List = this.getAllLocusList();
+		var bb0 = this.getBB();
+		points0List.forEach(function(element, index, array){
+			element.x /= (bb0.p2.x - bb0.p1.x);
+			element.y /= (bb0.p2.y - bb0.p1.y);
+		});
+
+		var points1List = svgger2.getAllLocusList();
+		var bb1 = svgger2.getBB();
+		points1List.forEach(function(element, index, array){
+			element.x /= (bb1.p2.x - bb1.p1.x);
+			element.y /= (bb1.p2.y - bb1.p1.y);
+		});
+
 		//
-		var hd = Utility.hausdorffDistance(color0List, color1List);
+		var hd = Utility.hausdorffDistance(points0List, points1List);
 		var score = 1/( 1+ hd );
 		console.log(this.index() + "vs" + svgger2.index() + ":  " + twoDP(score*100) + "%");
 
 		// save the score in my score list
 		this.scores.shape[svgger2.index()] = score;
+		svgger2.scores.shape[this.index()] = score;
 
 	};
 
 	Svgger.prototype.finalizeScore = function finalizeScore(){
 		for (var index in this.scores.color) {
 			if (this.scores.color.hasOwnProperty(index)) {
-				this.scores.final[index] = 1;
+				this.scores.final[index] = config.w.finalScore.color * this.scores.color[index] +
+				                           config.w.finalScore.shape * this.scores.shape[index];
 			}
 		}
 
 	};
 
 	Svgger.prototype.makeMatch = function makeMatch(){
+		var l = [];
+		for (var index in this.scores.final) {
+			if (this.scores.final.hasOwnProperty(index)) {
+				l.push({
+					"index": index,
+					"score": this.scores.final[index]
+				});
+			}
+		}
 
+		l = l.sort(function(a,b){
+			return b.score - a.score;
+		});
+
+		this.scores.list = l;
+		return l[0].index;
 	};
 
 

@@ -14,6 +14,10 @@ module.exports = (function(){
 				h:0.7,
 				s:0.15,
 				v:0.15
+			},
+			finalScore:{
+				color:0.3,
+				shape:0.7
 			}
 		},
 		interestedTags:{

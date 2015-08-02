@@ -13,6 +13,8 @@ var config = require("./config");
 
 var xml2js = require('./lib/xml2js');
 
+var rgb2lab = require('./rgb2lab');
+
 
 module.exports = (function(){
 
@@ -48,18 +50,18 @@ module.exports = (function(){
 	 * @param  {h,s,v} color2   color in hue, saturation, vallue
 	 * @return {number[0,1]}    score from 0 to 1
 	 */
-	Utility.compareColorHSV = function compareColorHSV(color1, color2) {
+	Utility.compareColorHSV = function compareColorHSV(HSVcolor1, HSVcolor2) {
 		// compare by hsv components
-		var diffH = Math.abs(color1.h - color2.h);
+		var diffH = Math.abs(HSVcolor1.h - HSVcolor2.h);
 
 		// normalize hue difference to become a ring
-		if( diffH>180 ) diffH = 180 - diffH;
+		if( diffH>180 ) diffH = 360 - diffH;
 		diffH/=180;
 
 		// other scores: saturation
-		var diffS = Math.abs(color1.s - color2.s);
+		var diffS = Math.abs(HSVcolor1.s - HSVcolor2.s);
 		// value
-		var diffV = Math.abs(color1.v - color2.v);
+		var diffV = Math.abs(HSVcolor1.v - HSVcolor2.v);
 
 		// get config entry fron config
 		var colorWeights = config.w.colorHSV;
@@ -69,6 +71,19 @@ module.exports = (function(){
 		                    diffS * colorWeights.s +
 		                    diffV * colorWeights.v ;
 		return weightedScore;
+	};
+
+	Utility.compareColorLab = function compareColorLab(RGBcolor1, RGBcolor2){
+		var c1Lab = rgb2lab(RGBcolor1);
+		var c2Lab = rgb2lab(RGBcolor2);
+
+		var distance = Math.sqrt(
+			(c1Lab.L - c2Lab.L) * (c1Lab.L - c2Lab.L),
+			(c1Lab.a - c2Lab.a) * (c1Lab.a - c2Lab.a),
+			(c1Lab.b - c2Lab.b) * (c1Lab.b - c2Lab.b)
+		);
+
+		
 	};
 
 	/**
@@ -87,8 +102,7 @@ module.exports = (function(){
 	 * @param  {string} pathString                             the d in <path d="">
 	 * @return {array([cmdName, arg0, arg1...]), all string}   broken command tokens
 	 */
-	Utility.parsePathData = function parsePathData(pathString)
-	{
+	Utility.parsePathData = function parsePathData(pathString){
 		var tokenizer = /([A-Za-z]+)|([+-]?(?:\d+\.?\d*|\.\d+))/gi,
 			match,
 			current,
@@ -117,8 +131,7 @@ module.exports = (function(){
 	 * @param  {string} pathString                               the d in <path d="">
 	 * @return {array of {x: parseFloat(number), y: parseFloat(number}}   broken command tokens)
 	 */
-	Utility.parsePolylineData = function parsePolylineData(pathString)
-	{
+	Utility.parsePolylineData = function parsePolylineData(pathString){
 		var tokenizer = /([+-]?(?:\d+\.?\d*|\.\d+))/gi,
 			match,
 			current,
@@ -316,6 +329,7 @@ module.exports = (function(){
 			return maxD;
 		}
 	};
+
 	Utility.getBoundingBox = function getBoundingBox(xmlObject) {
 
 		var result = {
@@ -424,6 +438,7 @@ module.exports = (function(){
 		}
 		return result;
 	};
+
 	Utility.parseMetric = function parseMetric(val){
 		if(typeof val === "string"){
 			return parseFloat(val.split("px")[0]);

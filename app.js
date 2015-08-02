@@ -9,7 +9,11 @@ var xml2jsBuilder = new xml2js.Builder({
 	preserveChildrenOrder:true,
 	rootName:"svg"
 });
-var Svgger = require('./svgger').factory;
+var SvggerClass = require('./svgger');
+var Svgger = SvggerClass.factory;
+
+var HTMLBuilder = require('./htmlBuilder');
+
 
 // rgb and hsv conversion
 // README: https://github.com/minodisk/colorful/tree/master
@@ -150,61 +154,35 @@ module.exports = (function(){
 
 		})
 		.then(function(){
-			var mergedPicture = {
-				"#name":"svg",
-				"$":{
-					"enable-background": "new 0 0 1600 1000",
-					"height": "1000px",
-					"version": "1.1",
-					"viewBox": "0 0 1600 1000",
-					"width": "1600px",
-					"x": "0px",
-					"y": "0px",
-					"xml:space": "preserve",
-					"xmlns": "http://www.w3.org/2000/svg",
-					"xmlns:xlink": "http://www.w3.org/1999/xlink"
-				},
-				"$$":[
-					d[0].xmlDoc,
-					d[1].xmlDoc
-				]
-			};
-			var w0 = parseInt(mergedPicture["$$"][0]["$"].width.split("px")[0]);
-			var w1 = parseInt(mergedPicture["$$"][1]["$"].width.split("px")[0]);
-			mergedPicture["$"].width = w0 + w1 + "px";
-			mergedPicture["$$"][1]["$"].x = mergedPicture["$$"][0]["$"].width;
+			createAnnotation(
+				d,
+				"indexList",
+				function(svggerObj, xx, yy, ww, hh){
+				var result = [];
+				var bboxXMLObject = {
+					"#name":"rect",
+					"$":{
+						"x": ""+xx+"px",
+						"y": ""+yy+"px",
+						"height": ""+hh+"px",
+						"width": ""+ww+"px",
+						"stroke": "blue",
+						"fill": "none"
+					}
+				};
+				result.push(bboxXMLObject);
 
-			for(var s in d[1].symbolList){
-				d[1].symbolList[s].BB(null);
-			}
-			d[0].rootSymbol.BB(null);
-			d[1].rootSymbol.BB(null);
-
-			var n = Svgger(mergedPicture);
-			var childrenList = [];
-
-			var child;
-			child = d[0].rootSymbol;
-			child.parentSvgger(n);
-			childrenList.push(child);
-
-			child = d[1].rootSymbol;
-			child.parentSvgger(n);
-			childrenList.push(child);
-
-			n.childrenList(childrenList);
-
-
-			var annotationList = traverseAddAnnotation(n);
-
-			mergedPicture["$$"].push( {
-				"#name":"g",
-				"$":{
-				},
-				"$$":annotationList
-			} );
-
-			dumpPhoto(mergedPicture, "mergedPicture");
+				var textXMLObject = {
+					"#name":"text",
+					"$":{
+						"transform": "matrix(1 0 0 1 "+ (xx + ww/2 + Math.random()*20) +" "+ (yy + hh/2 + Math.random()*20) +")",
+						"font-size": ""+ (14 + svggerObj.depth()*4)
+					},
+					_: ""+svggerObj.index() + "(" + svggerObj.depth() + ")"
+				};
+				result.push(textXMLObject);
+				return result;
+			});
 		})
 		.then(function(){
 			console.log("[5.2.1] Compare color");
@@ -238,19 +216,115 @@ module.exports = (function(){
 			for(var i=0; i < d[0].symbolList.length; i++){
 				d[0].symbolList[i].finalizeScore();
 			}
-			for(var j=0; j < d[1].symbolList.length; j++){
-				d[0].symbolList[i].finalizeScore();
+			for(var i=0; i < d[1].symbolList.length; i++){
+				d[1].symbolList[i].finalizeScore();
 			}
 
 			for(var i=0; i < d[0].symbolList.length; i++){
 				d[0].symbolList[i].makeMatch();
 			}
-			for(var j=0; j < d[1].symbolList.length; j++){
-				d[0].symbolList[i].makeMatch();
+			for(var i=0; i < d[1].symbolList.length; i++){
+				d[1].symbolList[i].makeMatch();
 			}
+
+			var scoreRanks = [];
+			for(var i=0; i < d[0].symbolList.length; i++){
+				scoreRanks.push({
+					"a": d[0].symbolList[i].index(),
+					"b": parseInt(d[0].symbolList[i].scores.list[0].index),
+					"score": d[0].symbolList[i].scores.list[0].score
+				});
+			}
+
+			scoreRanks = scoreRanks.sort(function(a,b){
+				return b.score - a.score;
+			});
+			console.log("Ranked according to similarity");
+			var bestMatch = {};
+			scoreRanks.forEach(function(element, index, array){
+				if(  !(bestMatch.hasOwnProperty(element.a) ||
+				       bestMatch.hasOwnProperty(element.b))  ){
+					bestMatch[element.a] = element.b;
+					bestMatch[element.b] = element.a;
+				}
+			});
+			console.log("Best match here");
+
+			dumpPhoto(xmlObject, filename);
+
 		})
 		.then(function(){
 			console.log("[5.3.2] Generate preview");
+			d[0].symbolList.forEach( function(svgger, index, array){
+				svgger.finalizeScore();
+				svgger.makeMatch();
+			},this);
+
+			createAnnotation(
+				d,
+				"bestMatch",
+				function(svggerObj, xx, yy, ww, hh){
+					var result = [];
+
+					if(svggerObj.scores.list.length <=0) return result;
+
+					var scoreList = [];
+
+					svggerObj.scores.list.forEach(function(element, index, array){
+						if(index > 2) return;
+						scoreList.push({
+							"#name":"tspan",
+							"$":{
+								"x": 0,
+								"dy": "1.2em"
+							},
+							"_":"vs " + element.index + ": " + twoDP(element.score*100) + "%"
+						});
+					});
+
+					// debug scores
+					var textXMLObject = {
+						"#name":"text",
+						"$":{
+							"transform": "matrix(1 0 0 1 "+ (xx + ww/2 + Math.random()*20) +" "+ (yy + hh/2 + Math.random()*20) +")",
+							"font-size": ""+ (10)
+						},
+						"$$":scoreList
+					};
+					result.push(textXMLObject);
+
+					// best match
+					var svggerObj2 = SvggerClass.get(svggerObj.scores.list[0].index);
+
+					var bb = svggerObj2.getBB();
+					var globalPos;
+					if(svggerObj2.parentSvgger() !== null) {
+						globalPos = svggerObj2.parentSvgger().getGlobalPos();
+					}else{
+						globalPos = svggerObj2.getGlobalPos();
+					}
+
+					var xx2 = globalPos.x + bb.p1.x;
+					var yy2 = globalPos.y + bb.p1.y;
+					var ww2 = bb.p2.x - bb.p1.x;
+					var hh2 = bb.p2.y - bb.p1.y;
+
+					var lineXMLObject = {
+						"#name":"line",
+						"$":{
+							"x1": ""+(xx + ww/2)+"px",
+							"y1": ""+(yy + hh/2)+"px",
+							"x2": ""+(xx2 + ww2/2)+"px",
+							"y2": ""+(yy2 + hh2/2)+"px",
+							"stroke": "lime",
+							"fill": "none"
+						}
+					};
+					result.push(lineXMLObject);
+					return result;
+				}
+			);
+
 		})
 		.then(function(){
 			console.log("[5.3.2] Generate html");
@@ -294,14 +368,14 @@ module.exports = (function(){
 		return n;
 	}
 
-	function traverseAddAnnotation(svggerObj){
+	function traverseAddAnnotation(svggerObj, callback){
 		var result = [];
 
 		// my children's
 		var clist = svggerObj.childrenList();
 		if(clist.length > 0) {
 			for (var i = 0; i < clist.length; i++) {
-				var annotations2 = traverseAddAnnotation(clist[i]);
+				var annotations2 = traverseAddAnnotation(clist[i], callback);
 				result = result.concat(annotations2);
 			}
 		}
@@ -320,28 +394,9 @@ module.exports = (function(){
 		var ww = bb.p2.x - bb.p1.x;
 		var hh = bb.p2.y - bb.p1.y;
 
-		var bboxXMLObject = {
-			"#name":"rect",
-			"$":{
-				"x": ""+xx+"px",
-				"y": ""+yy+"px",
-				"height": ""+hh+"px",
-				"width": ""+ww+"px",
-				"stroke": "blue",
-				"fill": "none"
-			}
-		};
-		result.push(bboxXMLObject);
+		var newAnnotations = callback(svggerObj,xx,yy,ww,hh);
+		result = result.concat(newAnnotations);
 
-		var textXMLObject = {
-			"#name":"text",
-			"$":{
-				"transform": "matrix(1 0 0 1 "+ (xx + ww/2 + Math.random()*20) +" "+ (yy + hh/2 + Math.random()*20) +")",
-				"font-size": ""+ (14 + svggerObj.depth()*4)
-			},
-			_: ""+svggerObj.index() + "(" + svggerObj.depth() + ")"
-		};
-		result.push(textXMLObject);
 
 
 
@@ -378,7 +433,68 @@ module.exports = (function(){
 		fs.closeSync(fd);
 	}
 
+	function createAnnotation(d, filenameSuffix, callback){
+		var mergedPicture = {
+			"#name":"svg",
+			"$":{
+				"enable-background": "new 0 0 1600 1000",
+				"height": "1000px",
+				"version": "1.1",
+				"viewBox": "0 0 1600 1000",
+				"width": "1600px",
+				"x": "0px",
+				"y": "0px",
+				"xml:space": "preserve",
+				"xmlns": "http://www.w3.org/2000/svg",
+				"xmlns:xlink": "http://www.w3.org/1999/xlink"
+			},
+			"$$":[
+				d[0].xmlDoc,
+				d[1].xmlDoc
+			]
+		};
+		var w0 = parseInt(mergedPicture["$$"][0]["$"].width.split("px")[0]);
+		var w1 = parseInt(mergedPicture["$$"][1]["$"].width.split("px")[0]);
+		mergedPicture["$"].width = w0 + w1 + "px";
+		mergedPicture["$$"][1]["$"].x = mergedPicture["$$"][0]["$"].width;
 
+		for(var s in d[1].symbolList){
+			d[1].symbolList[s].BB(null);
+		}
+		d[0].rootSymbol.BB(null);
+		d[1].rootSymbol.BB(null);
+
+		var n = Svgger(mergedPicture);
+		var childrenList = [];
+
+		var child;
+		child = d[0].rootSymbol;
+		child.parentSvgger(n);
+		childrenList.push(child);
+
+		child = d[1].rootSymbol;
+		child.parentSvgger(n);
+		childrenList.push(child);
+
+		n.childrenList(childrenList);
+
+
+		var annotationList = traverseAddAnnotation(n, callback);
+
+		mergedPicture["$$"].push( {
+			"#name":"g",
+			"$":{
+			},
+			"$$":annotationList
+		} );
+
+		dumpPhoto(mergedPicture, filenameSuffix);
+	}
+
+
+	function twoDP(number) {
+		return Math.round( number * 100 ) / 100;
+	}
 
 	return App;
 })();
