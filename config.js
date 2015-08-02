@@ -16,8 +16,8 @@ module.exports = (function(){
 				v:0.15
 			},
 			finalScore:{
-				color:0.3,
-				shape:0.7
+				color:0.2,
+				shape:0.8
 			}
 		},
 		interestedTags:{
@@ -29,7 +29,8 @@ module.exports = (function(){
 			"polyline":true,
 			"polygon":true,
 			"path":true,
-			"svg":true
+			"svg":true,
+			"text":true
 		},
 		pathSegmentLength:5
 	};

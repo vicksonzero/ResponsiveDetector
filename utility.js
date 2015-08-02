@@ -83,7 +83,7 @@ module.exports = (function(){
 			(c1Lab.b - c2Lab.b) * (c1Lab.b - c2Lab.b)
 		);
 
-		
+
 	};
 
 	/**
@@ -408,6 +408,22 @@ module.exports = (function(){
 				break;
 			case "path":
 				throw "FINAL BOSS!";
+				break;
+			case "text":
+				var trans = /matrix\(([+-]?(?:\d+\.?\d*|\.\d+)) ([+-]?(?:\d+\.?\d*|\.\d+)) ([+-]?(?:\d+\.?\d*|\.\d+)) ([+-]?(?:\d+\.?\d*|\.\d+)) ([+-]?(?:\d+\.?\d*|\.\d+)) ([+-]?(?:\d+\.?\d*|\.\d+))\)/.exec(xmlObject.$.transform);
+				var xx = trans[5];
+				var yy = trans[6];
+
+				result = {
+					p1:{
+						x: Utility.parseMetric(xx),
+						y: Utility.parseMetric(yy)
+					},
+					p2:{
+						x: Utility.parseMetric(xx) + 20,
+						y: Utility.parseMetric(yy) + 20
+					}
+				};
 				break;
 			default:
 				// do nothing

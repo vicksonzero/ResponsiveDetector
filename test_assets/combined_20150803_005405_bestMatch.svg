@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg enable-background="new 0 0 1600 1000" height="1000px" version="1.1" viewBox="0 0 1600 1000" width="1600px" x="0px" y="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="960px" height="1000px" viewBox="0 0 960 1000" enable-background="new 0 0 960 1000" xml:space="preserve">
+    <g id="bg_1_">
+      <rect fill="#A97C50" stroke="#231F20" stroke-miterlimit="10" width="960" height="1000"/>
+    </g>
+    <g id="content">
+      <rect id="Content_bg" y="141.841309" opacity="0.4" fill="#06FF18" stroke="#231F20" stroke-miterlimit="10" width="211.682617" height="349.206543"/>
+      <text transform="matrix(1 0 0 1 33.000488 186.333008)" font-family="'MyriadPro-Regular'" font-size="22">Item1</text>
+      <text transform="matrix(1 0 0 1 33.000488 227.632813)" font-family="'MyriadPro-Regular'" font-size="22">Item2</text>
+      <text transform="matrix(1 0 0 1 33.000488 268.933105)" font-family="'MyriadPro-Regular'" font-size="22">Item3</text>
+      <text transform="matrix(1 0 0 1 33.000488 310.23291)" font-family="'MyriadPro-Regular'" font-size="22">Item4</text>
+      <text transform="matrix(1 0 0 1 33.000488 351.533203)" font-family="'MyriadPro-Regular'" font-size="22">Item5</text>
+      <text transform="matrix(1 0 0 1 33.000488 392.833008)" font-family="'MyriadPro-Regular'" font-size="22">Item6</text>
+    </g>
+    <g id="title">
+      <g id="main">
+        <rect id="bg" x="211.682617" y="141.841309" opacity="0.5" fill="#FF7373" stroke="#231F20" stroke-miterlimit="10" width="748.317383" height="858.158691"/>
+        <text transform="matrix(1 0 0 1 242.611816 186.333008)">
+          <tspan x="0" y="0" font-family="'MyriadPro-Regular'" font-size="20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </tspan>
+          <tspan x="0" y="38" font-family="'MyriadPro-Regular'" font-size="20">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim </tspan>
+          <tspan x="0" y="76" font-family="'MyriadPro-Regular'" font-size="20">veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea </tspan>
+          <tspan x="0" y="114" font-family="'MyriadPro-Regular'" font-size="20">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate </tspan>
+          <tspan x="0" y="152" font-family="'MyriadPro-Regular'" font-size="20">velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat </tspan>
+          <tspan x="0" y="190" font-family="'MyriadPro-Regular'" font-size="20">cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est </tspan>
+          <tspan x="0" y="228" font-family="'MyriadPro-Regular'" font-size="20">laborum.</tspan>
+        </text>
+      </g>
+      <rect id="Title_bg" opacity="0.5" fill="#0000FF" stroke="#231F20" stroke-miterlimit="10" width="960" height="141.841309"/>
+      <text transform="matrix(1 0 0 1 197.110352 111.10791)" font-family="'MyriadPro-Regular'" font-size="32">Title!!!!!!</text>
+      <g id="Logo">
+        <rect x="62.362305" y="39.404297" fill="#1CA02B" width="57.503906" height="58.362305"/>
+        <circle fill="#BF2E2E" cx="137.604004" cy="58.000488" r="33.758301"/>
+        <polygon fill="#060087" points="122.727539,58.000488 91.114258,115.218262 164.496094,117.599121 &#x9;&#x9;"/>
+      </g>
+    </g>
+  </svg>
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="960px" y="0px" width="640px" height="1000px" viewBox="0 0 640 1000" enable-background="new 0 0 640 1000" xml:space="preserve">
+    <g id="bg_1_">
+      <rect fill="#A97C50" stroke="#231F20" stroke-width="0.816497" stroke-miterlimit="10" width="640" height="1000"/>
+    </g>
+    <g id="content">
+      <rect id="Content_bg" y="141.841309" opacity="0.4" fill="#06FF18" stroke="#231F20" stroke-width="1.76094" stroke-miterlimit="10" width="640" height="358.158691"/>
+      <text transform="matrix(1 0 0 1 288.402832 211.670898)" font-family="'MyriadPro-Regular'" font-size="33">Item1</text>
+      <text transform="matrix(1 0 0 1 288.402832 261.370605)" font-family="'MyriadPro-Regular'" font-size="33">Item2</text>
+      <text transform="matrix(1 0 0 1 288.402832 311.069824)" font-family="'MyriadPro-Regular'" font-size="33">Item3</text>
+      <text transform="matrix(1 0 0 1 288.402832 360.769531)" font-family="'MyriadPro-Regular'" font-size="33">Item4</text>
+      <text transform="matrix(1 0 0 1 288.402832 410.46875)" font-family="'MyriadPro-Regular'" font-size="33">Item5</text>
+      <text transform="matrix(1 0 0 1 288.402832 460.168457)" font-family="'MyriadPro-Regular'" font-size="33">Item6</text>
+    </g>
+    <g id="title">
+      <g id="main">
+        <rect id="bg" y="500" opacity="0.5" fill="#FF7373" stroke="#231F20" stroke-width="0.705908" stroke-miterlimit="10" width="640" height="500"/>
+        <text transform="matrix(1 0 0 1 30.616699 553.869141)">
+          <tspan x="0" y="0" font-family="'MyriadPro-Regular'" font-size="22">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </tspan>
+          <tspan x="0" y="44" font-family="'MyriadPro-Regular'" font-size="22">eiusmod tempor incididunt ut labore et dolore magna aliqua. </tspan>
+          <tspan x="0" y="88" font-family="'MyriadPro-Regular'" font-size="22">Ut enim ad minim veniam, quis nostrud exercitation ullamco </tspan>
+          <tspan x="0" y="132" font-family="'MyriadPro-Regular'" font-size="22">laboris nisi ut aliquip ex ea commodo consequat. Duis aute </tspan>
+          <tspan x="0" y="176" font-family="'MyriadPro-Regular'" font-size="22">irure dolor in reprehenderit in voluptate velit esse cillum dolore </tspan>
+          <tspan x="0" y="220" font-family="'MyriadPro-Regular'" font-size="22">eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non </tspan>
+          <tspan x="0" y="264" font-family="'MyriadPro-Regular'" font-size="22">proident, sunt in culpa qui officia deserunt mollit anim id est </tspan>
+          <tspan x="0" y="308" font-family="'MyriadPro-Regular'" font-size="22">laborum.</tspan>
+        </text>
+      </g>
+      <rect id="Title_bg" opacity="0.5" fill="#0000FF" stroke="#231F20" stroke-width="0.816497" stroke-miterlimit="10" width="640" height="141.841309"/>
+      <text transform="matrix(1 0 0 1 187.110352 111.10791)" font-family="'MyriadPro-Regular'" font-size="32">Title!!!!!!</text>
+      <g id="Logo">
+        <rect x="52.362305" y="39.404297" fill="#1CA02B" width="57.503906" height="58.362305"/>
+        <circle fill="#BF2E2E" cx="127.604004" cy="58.000488" r="33.758301"/>
+        <polygon fill="#060087" points="112.727539,58.000488 81.114258,115.218262 154.496094,117.599121 &#x9;&#x9;"/>
+      </g>
+    </g>
+  </svg>
+  <g>
+    <text transform="matrix(1 0 0 1 496.16471622139215 506.3572946889326)" font-size="10">
+      <tspan x="0" dy="1.2em">4</tspan>
+      <tspan x="0" dy="1.2em">vs 38: 85.66%</tspan>
+      <tspan x="0" dy="1.2em">vs 24: 79.79%</tspan>
+      <tspan x="0" dy="1.2em">vs 25: 79.79%</tspan>
+    </text>
+    <line x1="480px" y1="500px" x2="1280px" y2="70.9206545px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 494.7366183809936 513.3612990146503)" font-size="10">
+      <tspan x="0" dy="1.2em">3</tspan>
+      <tspan x="0" dy="1.2em">vs 38: 85.66%</tspan>
+      <tspan x="0" dy="1.2em">vs 24: 79.79%</tspan>
+      <tspan x="0" dy="1.2em">vs 25: 79.79%</tspan>
+    </text>
+    <line x1="480px" y1="500px" x2="1280px" y2="70.9206545px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 120.90384699714994 332.1955165695258)" font-size="10">
+      <tspan x="0" dy="1.2em">6</tspan>
+      <tspan x="0" dy="1.2em">vs 26: 78.28%</tspan>
+      <tspan x="0" dy="1.2em">vs 27: 78.28%</tspan>
+      <tspan x="0" dy="1.2em">vs 23: 64.36%</tspan>
+    </text>
+    <line x1="105.8413085px" y1="316.44458050000003px" x2="1280px" y2="320.92065449999996px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 51.393698056237874 199.0850367130028)" font-size="10">
+      <tspan x="0" dy="1.2em">7</tspan>
+      <tspan x="0" dy="1.2em">vs 33: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 28: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 29: 80%</tspan>
+    </text>
+    <line x1="43.000488px" y1="196.333008px" x2="1258.402832px" y2="470.168457px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 62.857550767259774 249.42754219087857)" font-size="10">
+      <tspan x="0" dy="1.2em">8</tspan>
+      <tspan x="0" dy="1.2em">vs 33: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 28: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 29: 80%</tspan>
+    </text>
+    <line x1="43.000488px" y1="237.632813px" x2="1258.402832px" y2="470.168457px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 57.31059309841144 293.23041394975365)" font-size="10">
+      <tspan x="0" dy="1.2em">9</tspan>
+      <tspan x="0" dy="1.2em">vs 33: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 28: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 29: 80%</tspan>
+    </text>
+    <line x1="43.000488px" y1="278.933105px" x2="1258.402832px" y2="470.168457px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 46.575519226500866 327.0717945678419)" font-size="10">
+      <tspan x="0" dy="1.2em">10</tspan>
+      <tspan x="0" dy="1.2em">vs 33: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 28: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 29: 80%</tspan>
+    </text>
+    <line x1="43.000488px" y1="320.23291px" x2="1258.402832px" y2="470.168457px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 59.48400744517344 376.75473327821334)" font-size="10">
+      <tspan x="0" dy="1.2em">11</tspan>
+      <tspan x="0" dy="1.2em">vs 33: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 28: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 29: 80%</tspan>
+    </text>
+    <line x1="43.000488px" y1="361.533203px" x2="1258.402832px" y2="470.168457px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 52.41887118482041 414.94705939416457)" font-size="10">
+      <tspan x="0" dy="1.2em">12</tspan>
+      <tspan x="0" dy="1.2em">vs 33: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 28: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 29: 80%</tspan>
+    </text>
+    <line x1="43.000488px" y1="402.833008px" x2="1258.402832px" y2="470.168457px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 112.54159264577245 323.5886780740552)" font-size="10">
+      <tspan x="0" dy="1.2em">5</tspan>
+      <tspan x="0" dy="1.2em">vs 26: 78.28%</tspan>
+      <tspan x="0" dy="1.2em">vs 27: 78.28%</tspan>
+      <tspan x="0" dy="1.2em">vs 23: 64.36%</tspan>
+    </text>
+    <line x1="105.8413085px" y1="316.44458050000003px" x2="1280px" y2="320.92065449999996px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 605.7319990343756 586.1981459214387)" font-size="10">
+      <tspan x="0" dy="1.2em">15</tspan>
+      <tspan x="0" dy="1.2em">vs 26: 67.52%</tspan>
+      <tspan x="0" dy="1.2em">vs 27: 67.52%</tspan>
+      <tspan x="0" dy="1.2em">vs 38: 60.59%</tspan>
+    </text>
+    <line x1="585.8413085px" y1="570.9206545px" x2="1280px" y2="320.92065449999996px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 264.3873434893716 214.7774268605994)" font-size="10">
+      <tspan x="0" dy="1.2em">16</tspan>
+      <tspan x="0" dy="1.2em">vs 33: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 28: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 29: 80%</tspan>
+    </text>
+    <line x1="252.61181599999998px" y1="196.333008px" x2="1258.402832px" y2="470.168457px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 605.2445931670597 590.6868768968654)" font-size="10">
+      <tspan x="0" dy="1.2em">14</tspan>
+      <tspan x="0" dy="1.2em">vs 26: 67.52%</tspan>
+      <tspan x="0" dy="1.2em">vs 27: 67.52%</tspan>
+      <tspan x="0" dy="1.2em">vs 38: 60.59%</tspan>
+    </text>
+    <line x1="585.8413085px" y1="570.9206545px" x2="1280px" y2="320.92065449999996px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 497.91798770427704 90.82294076411408)" font-size="10">
+      <tspan x="0" dy="1.2em">17</tspan>
+      <tspan x="0" dy="1.2em">vs 24: 85.66%</tspan>
+      <tspan x="0" dy="1.2em">vs 25: 85.66%</tspan>
+      <tspan x="0" dy="1.2em">vs 38: 79.79%</tspan>
+    </text>
+    <line x1="480px" y1="70.9206545px" x2="1280px" y2="500px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 225.6630324206893 134.06271333268643)" font-size="10">
+      <tspan x="0" dy="1.2em">18</tspan>
+      <tspan x="0" dy="1.2em">vs 33: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 28: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 29: 80%</tspan>
+    </text>
+    <line x1="207.110352px" y1="121.10791px" x2="1258.402832px" y2="470.168457px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 106.82685918391364 76.54260899032457)" font-size="10">
+      <tspan x="0" dy="1.2em">20</tspan>
+      <tspan x="0" dy="1.2em">vs 41: 72.25%</tspan>
+      <tspan x="0" dy="1.2em">vs 40: 55.55%</tspan>
+      <tspan x="0" dy="1.2em">vs 36: 51.81%</tspan>
+    </text>
+    <line x1="91.11425799999999px" y1="68.58544950000001px" x2="1041.114258px" y2="68.58544950000001px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 138.53051660551066 75.06904728990989)" font-size="10">
+      <tspan x="0" dy="1.2em">21</tspan>
+      <tspan x="0" dy="1.2em">vs 42: 69.68%</tspan>
+      <tspan x="0" dy="1.2em">vs 43: 44.95%</tspan>
+      <tspan x="0" dy="1.2em">vs 41: 41.15%</tspan>
+    </text>
+    <line x1="137.604004px" y1="58.000488px" x2="1087.604004px" y2="58.000488px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 145.90793665021755 89.08334828975927)" font-size="10">
+      <tspan x="0" dy="1.2em">22</tspan>
+      <tspan x="0" dy="1.2em">vs 43: 70.41%</tspan>
+      <tspan x="0" dy="1.2em">vs 42: 49.75%</tspan>
+      <tspan x="0" dy="1.2em">vs 40: 39.67%</tspan>
+    </text>
+    <line x1="127.805176px" y1="87.7998045px" x2="1077.805176px" y2="87.7998045px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 126.8140352494496 78.4658988800206)" font-size="10">
+      <tspan x="0" dy="1.2em">19</tspan>
+      <tspan x="0" dy="1.2em">vs 40: 73.28%</tspan>
+      <tspan x="0" dy="1.2em">vs 41: 55.08%</tspan>
+      <tspan x="0" dy="1.2em">vs 26: 54.91%</tspan>
+    </text>
+    <line x1="116.86230499999999px" y1="70.92065399999998px" x2="1066.862305px" y2="70.92065399999998px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 485.01780774910003 504.62808918207884)" font-size="10">
+      <tspan x="0" dy="1.2em">13</tspan>
+      <tspan x="0" dy="1.2em">vs 38: 66.53%</tspan>
+      <tspan x="0" dy="1.2em">vs 23: 66.24%</tspan>
+      <tspan x="0" dy="1.2em">vs 26: 65.14%</tspan>
+    </text>
+    <line x1="480px" y1="500px" x2="1280px" y2="70.9206545px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 480.30909948516637 517.7154207741842)" font-size="10">
+      <tspan x="0" dy="1.2em">2</tspan>
+      <tspan x="0" dy="1.2em">vs 38: 72.43%</tspan>
+      <tspan x="0" dy="1.2em">vs 24: 69.61%</tspan>
+      <tspan x="0" dy="1.2em">vs 25: 69.61%</tspan>
+    </text>
+    <line x1="480px" y1="500px" x2="1280px" y2="70.9206545px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1281.4555454161018 512.1883338829502)" font-size="10">
+      <tspan x="0" dy="1.2em">25</tspan>
+      <tspan x="0" dy="1.2em">vs 17: 85.66%</tspan>
+      <tspan x="0" dy="1.2em">vs 3: 79.79%</tspan>
+      <tspan x="0" dy="1.2em">vs 4: 79.79%</tspan>
+    </text>
+    <line x1="1280px" y1="500px" x2="480px" y2="70.9206545px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1295.3821149328724 511.2070269463584)" font-size="10">
+      <tspan x="0" dy="1.2em">24</tspan>
+      <tspan x="0" dy="1.2em">vs 17: 85.66%</tspan>
+      <tspan x="0" dy="1.2em">vs 3: 79.79%</tspan>
+      <tspan x="0" dy="1.2em">vs 4: 79.79%</tspan>
+    </text>
+    <line x1="1280px" y1="500px" x2="480px" y2="70.9206545px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1282.5268619367853 339.15240004388966)" font-size="10">
+      <tspan x="0" dy="1.2em">27</tspan>
+      <tspan x="0" dy="1.2em">vs 5: 78.28%</tspan>
+      <tspan x="0" dy="1.2em">vs 6: 78.28%</tspan>
+      <tspan x="0" dy="1.2em">vs 14: 67.52%</tspan>
+    </text>
+    <line x1="1280px" y1="320.92065449999996px" x2="105.8413085px" y2="316.44458050000003px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1258.6644962275825 230.45991607125657)" font-size="10">
+      <tspan x="0" dy="1.2em">28</tspan>
+      <tspan x="0" dy="1.2em">vs 12: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 7: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 8: 80%</tspan>
+    </text>
+    <line x1="1258.402832px" y1="221.670898px" x2="43.000488px" y2="402.833008px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1270.4390834769658 283.34692264225663)" font-size="10">
+      <tspan x="0" dy="1.2em">29</tspan>
+      <tspan x="0" dy="1.2em">vs 12: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 7: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 8: 80%</tspan>
+    </text>
+    <line x1="1258.402832px" y1="271.370605px" x2="43.000488px" y2="402.833008px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1265.2661457783036 330.6789759203037)" font-size="10">
+      <tspan x="0" dy="1.2em">30</tspan>
+      <tspan x="0" dy="1.2em">vs 12: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 7: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 8: 80%</tspan>
+    </text>
+    <line x1="1258.402832px" y1="321.069824px" x2="43.000488px" y2="402.833008px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1260.9378139520488 383.30303217243824)" font-size="10">
+      <tspan x="0" dy="1.2em">31</tspan>
+      <tspan x="0" dy="1.2em">vs 12: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 7: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 8: 80%</tspan>
+    </text>
+    <line x1="1258.402832px" y1="370.769531px" x2="43.000488px" y2="402.833008px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1276.8988244826398 435.5380966421217)" font-size="10">
+      <tspan x="0" dy="1.2em">32</tspan>
+      <tspan x="0" dy="1.2em">vs 12: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 7: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 8: 80%</tspan>
+    </text>
+    <line x1="1258.402832px" y1="420.46875px" x2="43.000488px" y2="402.833008px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1268.5091991754673 478.25448939711373)" font-size="10">
+      <tspan x="0" dy="1.2em">33</tspan>
+      <tspan x="0" dy="1.2em">vs 12: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 7: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 8: 80%</tspan>
+    </text>
+    <line x1="1258.402832px" y1="470.168457px" x2="43.000488px" y2="402.833008px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1290.7600512867793 338.8445460489986)" font-size="10">
+      <tspan x="0" dy="1.2em">26</tspan>
+      <tspan x="0" dy="1.2em">vs 5: 78.28%</tspan>
+      <tspan x="0" dy="1.2em">vs 6: 78.28%</tspan>
+      <tspan x="0" dy="1.2em">vs 14: 67.52%</tspan>
+    </text>
+    <line x1="1280px" y1="320.92065449999996px" x2="105.8413085px" y2="316.44458050000003px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1282.8622908797115 765.6238185567781)" font-size="10">
+      <tspan x="0" dy="1.2em">36</tspan>
+      <tspan x="0" dy="1.2em">vs 5: 55.55%</tspan>
+      <tspan x="0" dy="1.2em">vs 6: 55.55%</tspan>
+      <tspan x="0" dy="1.2em">vs 20: 51.81%</tspan>
+    </text>
+    <line x1="1280px" y1="750px" x2="105.8413085px" y2="316.44458050000003px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1001.6109384215614 578.2642310062919)" font-size="10">
+      <tspan x="0" dy="1.2em">37</tspan>
+      <tspan x="0" dy="1.2em">vs 12: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 7: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 8: 80%</tspan>
+    </text>
+    <line x1="1000.616699px" y1="563.869141px" x2="43.000488px" y2="402.833008px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1284.3354757549241 759.5060361688957)" font-size="10">
+      <tspan x="0" dy="1.2em">35</tspan>
+      <tspan x="0" dy="1.2em">vs 5: 55.55%</tspan>
+      <tspan x="0" dy="1.2em">vs 6: 55.55%</tspan>
+      <tspan x="0" dy="1.2em">vs 20: 51.81%</tspan>
+    </text>
+    <line x1="1280px" y1="750px" x2="105.8413085px" y2="316.44458050000003px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1286.740277283825 73.91474625291657)" font-size="10">
+      <tspan x="0" dy="1.2em">38</tspan>
+      <tspan x="0" dy="1.2em">vs 3: 85.66%</tspan>
+      <tspan x="0" dy="1.2em">vs 4: 85.66%</tspan>
+      <tspan x="0" dy="1.2em">vs 17: 79.79%</tspan>
+    </text>
+    <line x1="1280px" y1="70.9206545px" x2="480px" y2="500px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1168.8945923566464 133.66280077884704)" font-size="10">
+      <tspan x="0" dy="1.2em">39</tspan>
+      <tspan x="0" dy="1.2em">vs 12: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 7: 80%</tspan>
+      <tspan x="0" dy="1.2em">vs 8: 80%</tspan>
+    </text>
+    <line x1="1157.110352px" y1="121.10791px" x2="43.000488px" y2="402.833008px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1042.3018676064225 73.42981372586442)" font-size="10">
+      <tspan x="0" dy="1.2em">41</tspan>
+      <tspan x="0" dy="1.2em">vs 20: 72.25%</tspan>
+      <tspan x="0" dy="1.2em">vs 19: 55.08%</tspan>
+      <tspan x="0" dy="1.2em">vs 15: 49.23%</tspan>
+    </text>
+    <line x1="1041.114258px" y1="68.58544950000001px" x2="91.11425799999999px" y2="68.58544950000001px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1089.4144185443067 70.64848191850828)" font-size="10">
+      <tspan x="0" dy="1.2em">42</tspan>
+      <tspan x="0" dy="1.2em">vs 21: 69.68%</tspan>
+      <tspan x="0" dy="1.2em">vs 22: 49.75%</tspan>
+      <tspan x="0" dy="1.2em">vs 20: 44.17%</tspan>
+    </text>
+    <line x1="1087.604004px" y1="58.000488px" x2="137.604004px" y2="58.000488px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1097.0370846613134 106.39278729043286)" font-size="10">
+      <tspan x="0" dy="1.2em">43</tspan>
+      <tspan x="0" dy="1.2em">vs 22: 70.41%</tspan>
+      <tspan x="0" dy="1.2em">vs 21: 44.95%</tspan>
+      <tspan x="0" dy="1.2em">vs 19: 41.76%</tspan>
+    </text>
+    <line x1="1077.805176px" y1="87.7998045px" x2="127.805176px" y2="87.7998045px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1072.936229265802 87.18037194594078)" font-size="10">
+      <tspan x="0" dy="1.2em">40</tspan>
+      <tspan x="0" dy="1.2em">vs 19: 73.28%</tspan>
+      <tspan x="0" dy="1.2em">vs 5: 55.98%</tspan>
+      <tspan x="0" dy="1.2em">vs 6: 55.98%</tspan>
+    </text>
+    <line x1="1066.862305px" y1="70.92065399999998px" x2="116.86230499999999px" y2="70.92065399999998px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1298.6032744357362 507.87571131717414)" font-size="10">
+      <tspan x="0" dy="1.2em">34</tspan>
+      <tspan x="0" dy="1.2em">vs 5: 61.14%</tspan>
+      <tspan x="0" dy="1.2em">vs 6: 61.14%</tspan>
+      <tspan x="0" dy="1.2em">vs 17: 61.05%</tspan>
+    </text>
+    <line x1="1280px" y1="500px" x2="105.8413085px" y2="316.44458050000003px" stroke="lime" fill="none"/>
+    <text transform="matrix(1 0 0 1 1287.235969984904 516.8608547281474)" font-size="10">
+      <tspan x="0" dy="1.2em">23</tspan>
+      <tspan x="0" dy="1.2em">vs 13: 66.24%</tspan>
+      <tspan x="0" dy="1.2em">vs 5: 64.36%</tspan>
+      <tspan x="0" dy="1.2em">vs 6: 64.36%</tspan>
+    </text>
+    <line x1="1280px" y1="500px" x2="480px" y2="500px" stroke="lime" fill="none"/>
+  </g>
+</svg>

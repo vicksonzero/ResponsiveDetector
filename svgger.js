@@ -35,6 +35,7 @@ module.exports = (function(){
 		this._depth = 0;
 		this._index = 0;
 		this._BB = null;
+		this._identified = false;
 	}
 
 	function makeClone(obj){
@@ -111,6 +112,12 @@ module.exports = (function(){
 			return this._match;
 		}
 		this._match = val;
+	};
+	Svgger.prototype.identified = function (val) {
+		if(val === undefined){
+			return this._identified;
+		}
+		this._identified = val;
 	};
 	Svgger.prototype.BB = function (val) {
 		if(val === undefined){
